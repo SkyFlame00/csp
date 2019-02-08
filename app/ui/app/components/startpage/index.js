@@ -10,6 +10,9 @@ const StartPage = function() {
                     <h1>Welcome to Consulting Services Platform</h1>
                 </div>
 
+                <a data-route="/">Home</a>
+                <a data-route="/dashboard">Dashboard</a>
+
                 <div class="main-actions">
                     <button id="login-switch">Log in</button>
                     <button id="signup-switch">Sign up</button>

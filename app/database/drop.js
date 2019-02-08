@@ -2,9 +2,9 @@ const pg = require('pg');
 const connection = require('./config');
 
 const client = new pg.Client({
-    user: 'Anton',
-    database: 'postgres',
-    password: '',
+    user: 'skyflame',
+    database: 'skyflame',
+    password: '1234',
     host: 'localhost',
     port: 5432
 });

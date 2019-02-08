@@ -15,7 +15,7 @@ function js() {
         .pipe(source('source.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init())
-            .pipe(uglify())
+            //.pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(dest('./dist/'));
 }

@@ -1,7 +1,7 @@
 module.exports = {
-    user: 'Anton',
+    user: 'skyflame',
     database: 'csp',
-    password: '',
+    password: '1234',
     host: 'localhost',
     port: 5432
 };
