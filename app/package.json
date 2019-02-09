@@ -1,0 +1,15 @@
+{
+  "name": "gui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "npm run-script gulp && npm run-script start-server",
+    "gulp": "gulp --gulpfile ui/gulpfile.js regular",
+    "start-server": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

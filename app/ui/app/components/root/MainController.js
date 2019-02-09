@@ -23,9 +23,7 @@ const MainController = {
         if (this.path.length === componentsObjects.length) {
 
         }
-        else if () {
-
-        }
+        
 
         if (componentsObjects.length > 0) {
             let instances = componentsObjects.map(co => co.component.instantiate(co.parameters));

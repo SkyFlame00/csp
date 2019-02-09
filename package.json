@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "npm run-script gulp && npm run-script start-server",
+    "gulp": "gulp --gulpfile app/ui/gulpfile.js regular",
+    "start-server": "node app/server.js"
   },
   "keywords": [],
   "author": "",

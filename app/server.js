@@ -4,8 +4,9 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const pg = require('pg');
 const session = require('express-session');
+const path = require('path');
 
-app.use(express.static('ui/dist'));
+app.use(express.static('./ui/dist'));
 app.use(bodyParser.json());
 app.use(session({
     secret: 'cool app',
@@ -43,6 +44,7 @@ app.get('/api/logout', (req, res) => {
 });
 
 app.get('*', (req, res) => {
+    // const filePath = path.resolve(__dirname, './ui/bootstrap/index.html')
     const bootstrap = fs.readFileSync('./ui/bootstrap/index.html');
     res.end(bootstrap);
 });

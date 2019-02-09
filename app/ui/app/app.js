@@ -22,21 +22,53 @@ window.addEventListener('popstate', evt => {
 });
 
 document.addEventListener('DOMContentLoaded', function(evt) {
-    const path = window.location.pathname;
+    let path = window.location.pathname;
     const rootInstance = Root.create();
     MainController.initialize(rootInstance);
 
-    Router.setPaths({
-        '/': {
-            component: Dashboard,
-            children: {
-                'test': {
-                    component: Test,
-                    children: {}
-                }
-            }
-        }
-    });
+    console.log(path);
 
-    Router.navigate(path);
+    // path = path[0] === '/' ? path.substr(1): path;
+    // path = path[path.length-1] === '/' ? path.substr(0, path.length-1) : path;
+
+    let routes = [
+        {
+            regexp: /^genres$/gi,
+            handler: 'genres handler'
+        },
+        {
+            regexp: /^genres\/([^\/\s]+)(?:\/|$)/gi,
+            paramsNames: ['genre'],
+            children: [
+                {
+                    regexp: /^\/$/gi,
+                    handler: 'genre handler'
+                },
+                {
+                    regexp: /^movies(?:\/|$)/gi,
+                    children: [
+                        {
+                            regexp: /^\/$/gi,
+                            handler: 'movies handler'
+                        },
+                        {
+                            regexp: /^([^\/\s]+)$/gi,
+                            paramsNames: ['movie'],
+                            handler: 'movie handler'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    const router = new Router();
+    router
+        .addRoute('genres/(:genre)/movies', function(){console.log('route 1')})
+        .addRoute('genres/(:genre)/movies/(:movie)', function(){console.log('route 2')})
+        .addRoute('lib/(:book)', function(){console.log('route 3')})
+
+    console.log(router.routes)
+
+    router.navigate(path)
 });

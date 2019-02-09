@@ -1,135 +1,166 @@
 const app = require('csp-app/state.js');
 const MainController = require('csp-app/components/root/MainController.js');
 
-const Router = {
-    paths: {},
-    setPaths: function(paths) {this.paths = paths;},
-    // pathExists: function(parts) {
-    //     let paths = this.paths;
-    //     for (let i = 0, part; i < parts.length, part = parts[i]; i++) {
-    //         if (!paths || !this.paths[part]) return false;
-    //         const params = paths[part].parameters;
-    //         if (params && params.length > 0 && i !== parts.length) {
-    //             if (parts.length-i < params.length) return false;
-    //             i = i + params.length;
-    //         }
-    //         paths = paths[part].children;
-    //     }
-    //     return true;
-    // },
-    pathExists: function(parts) {
-        let paths = this.paths;
-        for (let i = 0, part; i < parts.length, part = parts[i]; i++) {
-            if (!paths || !this.paths[part]) return false;
-            const params = paths[part].parameters;
-            if (params && params.length > 0) {
-                if (parts[i+1]) {
-                    const partsAvailable = parts.length-i;
-                    if (partsAvailable < params.length) {
-                        return false;
-                    }
-                    else if (partsAvailable > params.length) {
-                        i = i + params.length;
-                        paths = paths[part].children;
-                    }
-                    else if (partsAvailable === params.length) {
-                        if (!paths[part].children['__defaultWithParams']) return false;
-                    }
-                }
-                else {
-                    if (!paths[part].children['__default']) return false;
-                    // After that we get out of the cycle as there are no more parts
-                }
-            }
-            else {
-                if (parts[i+1]) {
-                    paths = paths[part].children;
-                }
-                else {
-                    if (!paths[part].children['__default']) return false;
-                }
-            }
-        }
-        return true;
-    },
-    // makeComponentsObjects: function(parts) {
-    //     let componentsObjects = [];
-    //     let paths = this.paths;
-    //     for (let i = 0, part; i < parts.length, part = parts[i]; i++) {
-    //         const pathParams = paths[part].parameters;
-    //         let params;
-    //         if (pathParams && pathParams.length > 0 && i !== parts.length) {
-    //             params = parts.slice(i+1, i+1+pathParams.length);
-    //             i = i + params.length;
-    //         }
-    //         componentsObjects.push({
-    //             path: part,
-    //             component: paths[part].component,
-    //             params: params || null
-    //         })
-    //         paths = paths[part].children;
-    //     }
-    //     return componentsObjects;
-    // },
-    makeComponentsObjects: function(parts) {
-        let componentsObjects = [];
-        let paths = this.paths;
-        for (let i = 0, part; i < parts.length, part = parts[i]; i++) {
-            const pathParams = paths[part].parameters;
-            let params, component;
-            if (pathParams && pathParams.length > 0) {
-                if (parts[i+1]) {
-                    params = parts.slice(i+1, i+1+pathParams.length);
-                    i = i + params.length;
+// const Router = {
+//   routes: [],
+//   regexpParams: /(\(:([\w\d\-_]+)\))/gi,
+//   trimRoute: function(route){
+//     route = route[0] === '/'
+//       ? route.substr(1)
+//       : route;
 
-                    const partsAvailable = parts.length-i;
-                    if (partsAvailable > params.length) {
-                        paths[parts[++i]]
-                    }
-                    else if (partsAvailable === params.length) {
-                        if (!paths[part].children['__defaultWithParams']) return false;
-                    }
-                }
-                else {
+//     route = route[route.length - 1] === '/'
+//       ? route.substr(0, route.length - 1)
+//       : route;
 
-                }
-            }
-            else {
+//     return route;
+//   },
+//   getParamsNames: function (route) {
+//     let result;
+//     let paramsNames = [];
+//     while ((result = this.regexpParams.exec(route)) !== null) {
+//       paramsNames.push(result[2]);
+//     }
+//     return paramsNames;
+//   },
+//   addRoute: function(route, handler) {
+//     route = this.trimRoute(route);
+//     let paramsNames = this.getParamsNames(route);
+//     let regexpStr = route.replace(regexpParams, '[\\w\\d\-_]+');
+//     let regexp = RegExp(`^${regexpStr}(\\/|$)`, 'gi');
 
-            }
-        }
-        return componentsObjects;
-    },
-    // For instance, in case if need to render modal including it into routing
-    checkIfSpecialCase: function(parts) {
+//     let routeObj = {
+//       regexp: regexp,
+//       paramsNames: paramsNames
+//     };
 
-    },
-    navigate: function(link) {
-        let parts = ['/'];
+//     if (typeof handler === 'function') {
+//       routeObj.handler = handler;
+//     }
 
-        if (link !== '/') {
-            link = link[0]               === '/' ? link.substring(1)              : link;
-            link = link[link.length - 1] === '/' ? link.substring(0, link.length) : link;
-            parts = parts.concat(link.split('/'));
-        }
-        
-        if (!this.pathExists(parts)) {
-            // display error
-            console.log('The current path does not exist')
-        }
+//     if (handler instanceof Array) {
+//       routeObj.children = handler;
+//     }
 
-        const componentsObjects = this.makeComponentsObjects(parts);
+//     if (!(typeof handler === 'function' || handler instanceof Array)) {
+//       console.log('Error occured while adding route');
+//       throw new Error('route error');
+//     }
 
-        try {
-            MainController.render(componentsObjects);
-            // add state
-            history.pushState({}, '', link);
-            console.log('Navigated to ' + link)
-        }
-        catch(e) {
+//     this.routes.push(routeObj);
+//     return this;
+//   }
+// };
 
-        }
+const Router = function() {
+  this.routes = [];
+};
+
+Router.prototype.regexpParams = /(\(:([\w\d\-_]+)\))/gi;
+
+Router.prototype.trimRoute = function(route){
+  route = route[0] === '/'
+    ? route.substr(1)
+    : route;
+
+  route = route[route.length - 1] === '/'
+    ? route.substr(0, route.length - 1)
+    : route;
+
+  return route;
+},
+
+Router.prototype.getParamsNames = function(route) {
+  let result;
+  let paramsNames = [];
+  while ((result = this.regexpParams.exec(route)) !== null) {
+    paramsNames.push(result[2]);
+  }
+  return paramsNames;
+}
+
+Router.prototype.addRoute = function(route, handler) {
+  route = this.trimRoute(route);
+  let paramsNames = this.getParamsNames(route);
+  let regexpStr = route.replace(this.regexpParams, '[\\w\\d\-_]+');
+  let regexp = RegExp(`^${regexpStr}(\\/|$)`, 'gi');
+
+  let routeObj = {
+    regexp: regexp,
+    paramsNames: paramsNames
+  };
+
+  if (typeof handler === 'function') {
+    routeObj.handler = handler;
+  }
+
+  if (handler instanceof Array) {
+    routeObj.children = handler;
+  }
+
+  if (!(typeof handler === 'function' || handler instanceof Array)) {
+    console.log('Error occured while adding route');
+    throw new Error('route error');
+  }
+
+  this.routes.push(routeObj);
+  return this;
+};
+
+Router.prototype.getRoute = function(link, routes = this.routes, params = {}) {
+  link = link === '' ? '/' : link;
+
+  for (let i = 0; i < routes.length, route = routes[i]; i++) {
+    let regexp = route.regexp;
+    let result = regexp.exec(link);
+
+    if (result && result.length > 1) {
+      for (let idx = 1; idx < result.length; idx++) {
+        params[route.paramsNames[idx-1]] = result[idx];
+      }
     }
+
+    if (regexp.lastIndex > 0) {
+      link = link.substr(regexp.lastIndex);
+    }
+
+    if (regexp.lastIndex > 0 && link.length > 0) {
+      if (route.children && route.children.length > 0) {
+        let childrenCheck = this.getRoute(link, route.children, params);
+        if (childrenCheck !== null) {
+          return childrenCheck;
+        }
+      }
+    }
+
+    else if (regexp.lastIndex > 0) {
+      if (route.handler) {
+        return {
+          handler: route.handler,
+          params: params
+        };
+      }
+      
+      if (route.children) {
+        let childrenCheck = this.getRoute(link, route.children, params);
+        if (childrenCheck !== null) {
+          return childrenCheck;
+        }
+      }
+    }
+  }
+  return null;
+}
+
+Router.prototype.navigate = function(link) {
+  link = this.trimRoute(link);
+  let route = this.getRoute(link);
+  if (!route) {
+    console.log('Error while navigating route');
+    return;
+  }
+  route.handler(route.params);
+  history.pushState('', '', link);
 };
 
 module.exports = Router;
