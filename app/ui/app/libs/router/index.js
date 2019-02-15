@@ -1,57 +1,6 @@
 const app = require('csp-app/state.js');
 const MainController = require('csp-app/components/root/MainController.js');
 
-// const Router = {
-//   routes: [],
-//   regexpParams: /(\(:([\w\d\-_]+)\))/gi,
-//   trimRoute: function(route){
-//     route = route[0] === '/'
-//       ? route.substr(1)
-//       : route;
-
-//     route = route[route.length - 1] === '/'
-//       ? route.substr(0, route.length - 1)
-//       : route;
-
-//     return route;
-//   },
-//   getParamsNames: function (route) {
-//     let result;
-//     let paramsNames = [];
-//     while ((result = this.regexpParams.exec(route)) !== null) {
-//       paramsNames.push(result[2]);
-//     }
-//     return paramsNames;
-//   },
-//   addRoute: function(route, handler) {
-//     route = this.trimRoute(route);
-//     let paramsNames = this.getParamsNames(route);
-//     let regexpStr = route.replace(regexpParams, '[\\w\\d\-_]+');
-//     let regexp = RegExp(`^${regexpStr}(\\/|$)`, 'gi');
-
-//     let routeObj = {
-//       regexp: regexp,
-//       paramsNames: paramsNames
-//     };
-
-//     if (typeof handler === 'function') {
-//       routeObj.handler = handler;
-//     }
-
-//     if (handler instanceof Array) {
-//       routeObj.children = handler;
-//     }
-
-//     if (!(typeof handler === 'function' || handler instanceof Array)) {
-//       console.log('Error occured while adding route');
-//       throw new Error('route error');
-//     }
-
-//     this.routes.push(routeObj);
-//     return this;
-//   }
-// };
-
 const Router = function() {
   this.routes = [];
 };
@@ -94,11 +43,11 @@ Router.prototype.addRoute = function(route, handler) {
     routeObj.handler = handler;
   }
 
-  if (handler instanceof Array) {
+  else if (handler instanceof Array) {
     routeObj.children = handler;
   }
 
-  if (!(typeof handler === 'function' || handler instanceof Array)) {
+  else {
     console.log('Error occured while adding route');
     throw new Error('route error');
   }
@@ -132,8 +81,9 @@ Router.prototype.getRoute = function(link, routes = this.routes, params = {}) {
         }
       }
     }
-
+    
     else if (regexp.lastIndex > 0) {
+      // In case it's terminal route
       if (route.handler) {
         return {
           handler: route.handler,
@@ -150,7 +100,7 @@ Router.prototype.getRoute = function(link, routes = this.routes, params = {}) {
     }
   }
   return null;
-}
+};
 
 Router.prototype.navigate = function(link) {
   link = this.trimRoute(link);
@@ -160,7 +110,14 @@ Router.prototype.navigate = function(link) {
     return;
   }
   route.handler(route.params);
-  history.pushState('', '', link);
+  console.log(link)
+  history.pushState('', '', '/' + link);
 };
+
+const Subrouter = function() {
+  this.routes = [];
+};
+Subrouter.prototype = Router.prototype;
+Router.Subrouter = Subrouter;
 
 module.exports = Router;
