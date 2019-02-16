@@ -1,0 +1,179 @@
+@import '../../root/styles/variables';
+
+// Start component global styles
+.cmp_start {
+  .container {
+    width: 450px;
+  }
+
+  .wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-block {
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.2em;
+    font-weight: normal;
+  }
+
+  button {
+    outline: 0;
+    border: none;
+  }
+}
+
+// No difference in case that we instead would put code below
+// in .cmp_start above. Both .cmp_start and .start-tabs are
+// unique all over the entire application
+.start-tabs {
+  .tabs-content-item {
+    &.active {
+      display: block;
+    }
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .main-actions {
+    margin: 30px 0;
+    text-align: center;
+  
+    span {
+      margin: 0 10px;
+      padding: 10px 16px;
+      font-size: .9em;
+      border-radius: 3px;
+      transition: .2s linear;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: rgb(248, 248, 248);
+      }
+      
+      &.active {
+        background-color: $blue;
+        color: white
+      }
+    }
+  }
+}
+
+.login-block, .signup-block {
+  .input-block {
+    margin-bottom: 14px;
+
+    label {
+      display: block;
+      float: left;
+      width: 25%;
+      font-size: 1em;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      display: block;
+      width: 100%;
+      padding: 8px 0;
+      font-size: .9em;
+      border: none;
+      border-bottom: 1px solid $regular-color;
+    }
+  }
+
+  .form .actions {
+    margin-top: 20px;
+    input[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 8px 0;
+      background: $light-gray;
+      font-size: .9em;
+      border: none;
+      border-radius: 4px;
+    }
+  }
+}
+
+.login-block {
+  box-shadow: 0 0 24px 0 #e6e6e6;
+  border-radius: 6px;
+
+  .header {
+    padding: 12px 0;
+    background-color: $light-gray;
+    text-align: center;
+    border-radius: 6px 6px 0 0;
+
+    h2 {
+      font-size: 1.1em;
+      font-weight: normal;
+    }
+  }
+
+  .form {
+    padding: 15px;
+  }
+}
+
+.signup-block {
+  .tabs-header.actions {
+    background-color: #e0e0e024;
+    border-radius: 6px 6px 0 0;
+  
+    button {
+      position: relative;
+      display: block;
+      float: left;
+      width: 50%;
+      padding: 14px 0;
+      background: transparent;
+      text-align: center;
+      font-size: 1em;
+      transition: .2s linear;
+      cursor: pointer;
+    }
+  
+    button.active {
+      background-color: white;
+      border-radius: 6px 6px 0 0;
+
+      &::before {
+        border-radius: 6px 6px 0 0;
+      }
+    }
+  }
+
+  // .tabs-header.actions button.active::before {
+  //   border-radius: 6px 6px 0 0;
+  // }
+
+  .form {
+    padding: 15px;
+    position: relative;
+    background-color: white;
+  }
+
+  .form::before, .tabs-header.actions button.active::before {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    box-shadow: 0 0 24px 0 #e6e6e6;
+    transition: .2s linear;
+    z-index: -1;
+  }
+}

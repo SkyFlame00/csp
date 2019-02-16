@@ -19,85 +19,97 @@ html, body, #app {
   width: 100%;
   height: 100%; }
 
-.display-none {
-  display: none; }
 
-.wrapper {
+.cmp_start .container {
+  width: 450px; }
+
+.cmp_start .wrapper {
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: center; }
 
-.startpage {
-  width: 450px; }
-  .startpage button {
-    outline: 0;
-    border: none; }
-  .startpage .form .input-block {
-    margin-bottom: 14px; }
-    .startpage .form .input-block label {
-      display: block;
-      float: left;
-      width: 25%;
-      font-size: 1em; }
-    .startpage .form .input-block input {
-      display: block;
-      width: 100%;
-      padding: 8px 0;
-      font-size: .9em;
-      border: none;
-      border-bottom: 1px solid #e6e6e6; }
-  .startpage .form .actions {
-    margin-top: 20px; }
-    .startpage .form .actions input[type="submit"] {
-      display: block;
-      width: 100%;
-      padding: 8px 0;
-      background: #f9f9f9;
-      font-size: .9em;
-      border: none;
-      border-radius: 4px; }
-
-.logo-block {
+.cmp_start .logo-block {
   text-align: center; }
-  .logo-block h1 {
-    font-size: 1.2em;
-    font-weight: normal; }
 
-.main-actions {
+.cmp_start h1 {
+  font-size: 1.2em;
+  font-weight: normal; }
+
+.cmp_start button {
+  outline: 0;
+  border: none; }
+
+.start-tabs .tabs-content-item.active {
+  display: block; }
+
+.start-tabs .tabs-content-item.hidden {
+  display: none; }
+
+.start-tabs .main-actions {
   margin: 30px 0;
   text-align: center; }
-  .main-actions button {
+  .start-tabs .main-actions span {
     margin: 0 10px;
     padding: 10px 16px;
     font-size: .9em;
     border-radius: 3px;
     transition: .2s linear;
     cursor: pointer; }
-    .main-actions button:hover {
+    .start-tabs .main-actions span:hover {
       background-color: #f8f8f8; }
-    .main-actions button.active {
+    .start-tabs .main-actions span.active {
       background-color: #4141ff;
       color: white; }
 
-.login {
+.login-block .input-block, .signup-block .input-block {
+  margin-bottom: 14px; }
+  .login-block .input-block label, .signup-block .input-block label {
+    display: block;
+    float: left;
+    width: 25%;
+    font-size: 1em; }
+  .login-block .input-block input[type="text"],
+  .login-block .input-block input[type="password"],
+  .login-block .input-block input[type="email"], .signup-block .input-block input[type="text"],
+  .signup-block .input-block input[type="password"],
+  .signup-block .input-block input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    font-size: .9em;
+    border: none;
+    border-bottom: 1px solid #e6e6e6; }
+
+.login-block .form .actions, .signup-block .form .actions {
+  margin-top: 20px; }
+  .login-block .form .actions input[type="submit"], .signup-block .form .actions input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    background: #f9f9f9;
+    font-size: .9em;
+    border: none;
+    border-radius: 4px; }
+
+.login-block {
   box-shadow: 0 0 24px 0 #e6e6e6;
   border-radius: 6px; }
-  .login .header {
+  .login-block .header {
     padding: 12px 0;
     background-color: #f9f9f9;
     text-align: center;
     border-radius: 6px 6px 0 0; }
-    .login .header h2 {
+    .login-block .header h2 {
       font-size: 1.1em;
       font-weight: normal; }
-  .login .login-form {
+  .login-block .form {
     padding: 15px; }
 
-.tab-actions {
+.signup-block .tabs-header.actions {
   background-color: #e0e0e024;
   border-radius: 6px 6px 0 0; }
-  .tab-actions button {
+  .signup-block .tabs-header.actions button {
     position: relative;
     display: block;
     float: left;
@@ -108,15 +120,18 @@ html, body, #app {
     font-size: 1em;
     transition: .2s linear;
     cursor: pointer; }
-  .tab-actions button.active {
+  .signup-block .tabs-header.actions button.active {
     background-color: white;
     border-radius: 6px 6px 0 0; }
+    .signup-block .tabs-header.actions button.active::before {
+      border-radius: 6px 6px 0 0; }
 
-.signup-form {
+.signup-block .form {
+  padding: 15px;
   position: relative;
   background-color: white; }
 
-.signup-form::before, .tab-actions button.active::before {
+.signup-block .form::before, .signup-block .tabs-header.actions button.active::before {
   position: absolute;
   display: block;
   content: '';
@@ -131,14 +146,5 @@ html, body, #app {
   transition: .2s linear;
   z-index: -1; }
 
-.tab-actions button.active::before {
-  border-radius: 6px 6px 0 0; }
-
-.first-tab-active, .first-tab-active::before {
-  border-radius: 0 6px 6px 6px; }
-
-.last-tab-active, .last-tab-active::before {
-  border-radius: 6px 0 6px 6px; }
-
-.client-form, .exec-form {
-  padding: 15px; }
+.display-none {
+  display: none; }
