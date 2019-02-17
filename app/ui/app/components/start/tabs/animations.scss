@@ -1,0 +1,103 @@
+@import '../../root/styles/variables';
+
+/*
+** @Header
+*/
+.loginSignup-header {
+
+}
+
+/*
+** @Content
+*/
+.loginSignup-content {
+  position: relative;
+}
+
+
+/*
+** @Header item
+*/
+.loginSignup-HI {
+  &:hover {
+    background-color: rgb(248, 248, 248);
+  }
+}
+
+.loginSignup-HI-active {
+  background-color: $blue;
+  color: white;
+  
+  &:hover {
+    background-color: $blue;
+  }
+}
+
+/*
+** @Content item
+*/
+.loginSignup-CI {
+  // transition: .2s linear;
+}
+
+.loginSignup-CI-hidden {
+  display: none;
+  position: absolute;
+  transform: scale(0.7);
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 450px;
+}
+
+.loginSignup-CI-activating {
+  display: block;
+  position: absolute;
+  width: 450px;
+  animation-name: activating;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  z-index: 1000;
+}
+
+.loginSignup-CI-active {
+
+}
+
+.loginSignup-CI-hiding {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 450px;
+  animation-name: hiding;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  z-index: 999;
+}
+
+/*
+** @Animations
+*/
+@keyframes activating {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes hiding {
+  from {
+    top: 0;
+    opacity: 1;
+  }
+  to {
+    top: 100px;
+    opacity: 0;
+  }
+}

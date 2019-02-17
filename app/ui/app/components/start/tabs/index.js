@@ -27,7 +27,7 @@ const StartTabs = new Tabs({
       signupBlock
     ]
   },
-  animation: 'defaultAnim'
+  animation: 'loginSignupSwitch'
 });
 
 StartTabs.content.items[1].appendChild(SignupTabs.header.element);

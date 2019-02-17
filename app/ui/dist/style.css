@@ -1,24 +1,76 @@
-@font-face {
-  font-family: 'Open Sans';
-  src: url("fonts/open-sans.ttf"); }
 
-.clearfix::after {
+/*
+** @Header
+*/
+/*
+** @Content
+*/
+.loginSignup-content {
+  position: relative; }
+
+/*
+** @Header item
+*/
+.loginSignup-HI:hover {
+  background-color: #f8f8f8; }
+
+.loginSignup-HI-active {
+  background-color: #4141ff;
+  color: white; }
+  .loginSignup-HI-active:hover {
+    background-color: #4141ff; }
+
+/*
+** @Content item
+*/
+.loginSignup-CI-hidden {
+  display: none;
+  position: absolute;
+  transform: scale(0.7);
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 450px; }
+
+.loginSignup-CI-activating {
   display: block;
-  content: '';
-  clear: both; }
+  position: absolute;
+  width: 450px;
+  animation-name: activating;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  z-index: 1000; }
 
-* {
-  margin: 0;
-  padding: 0; }
+.loginSignup-CI-hiding {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 450px;
+  animation-name: hiding;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  z-index: 999; }
 
-body {
-  font-size: 1em;
-  font-family: 'Open Sans'; }
+/*
+** @Animations
+*/
+@keyframes activating {
+  from {
+    transform: scale(0.5);
+    opacity: 0; }
+  to {
+    transform: scale(1);
+    opacity: 1; } }
 
-html, body, #app {
-  width: 100%;
-  height: 100%; }
-
+@keyframes hiding {
+  from {
+    top: 0;
+    opacity: 1; }
+  to {
+    top: 100px;
+    opacity: 0; } }
 
 .cmp_start .container {
   width: 450px; }
@@ -50,17 +102,12 @@ html, body, #app {
   margin: 30px 0;
   text-align: center; }
   .start-tabs .main-actions span {
+    transition: .2s linear;
     margin: 0 10px;
     padding: 10px 16px;
     font-size: .9em;
     border-radius: 3px;
-    transition: .2s linear;
     cursor: pointer; }
-    .start-tabs .main-actions span:hover {
-      background-color: #f8f8f8; }
-    .start-tabs .main-actions span.active {
-      background-color: #4141ff;
-      color: white; }
 
 .login-block .input-block, .signup-block .input-block {
   margin-bottom: 14px; }
@@ -104,7 +151,8 @@ html, body, #app {
       font-size: 1.1em;
       font-weight: normal; }
   .login-block .form {
-    padding: 15px; }
+    padding: 15px;
+    background-color: white; }
 
 .signup-block .tabs-header.actions {
   background-color: #e0e0e024;
@@ -118,7 +166,6 @@ html, body, #app {
     background: transparent;
     text-align: center;
     font-size: 1em;
-    transition: .2s linear;
     cursor: pointer; }
   .signup-block .tabs-header.actions button.active {
     background-color: white;
@@ -126,12 +173,15 @@ html, body, #app {
     .signup-block .tabs-header.actions button.active::before {
       border-radius: 6px 6px 0 0; }
 
-.signup-block .form {
-  padding: 15px;
+.signup-block .forms {
   position: relative;
-  background-color: white; }
+  padding: 15px;
+  background-color: white;
+  border-radius: 0 0 6px 6px; }
+  .signup-block .forms::before {
+    border-radius: 0 0 6px 6px; }
 
-.signup-block .form::before, .signup-block .tabs-header.actions button.active::before {
+.signup-block .forms::before, .signup-block .tabs-header.actions button.active::before {
   position: absolute;
   display: block;
   content: '';
@@ -145,6 +195,31 @@ html, body, #app {
   box-shadow: 0 0 24px 0 #e6e6e6;
   transition: .2s linear;
   z-index: -1; }
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url("fonts/open-sans.ttf"); }
+
+.clearfix::after {
+  display: block;
+  content: '';
+  clear: both; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-size: 1em;
+  font-family: 'Open Sans'; }
+
+html, body, #app {
+  width: 100%;
+  height: 100%; }
+
+#app {
+  overflow: hidden; }
+
 
 .display-none {
   display: none; }

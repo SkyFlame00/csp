@@ -46,21 +46,22 @@
     text-align: center;
   
     span {
+      transition: .2s linear;
       margin: 0 10px;
       padding: 10px 16px;
       font-size: .9em;
       border-radius: 3px;
-      transition: .2s linear;
+      
       cursor: pointer;
   
-      &:hover {
-        background-color: rgb(248, 248, 248);
-      }
+      // &:hover {
+      //   background-color: rgb(248, 248, 248);
+      // }
       
-      &.active {
-        background-color: $blue;
-        color: white
-      }
+      // &.active {
+      //   background-color: $blue;
+      //   color: white
+      // }
     }
   }
 }
@@ -120,6 +121,7 @@
 
   .form {
     padding: 15px;
+    background-color: white;
   }
 }
 
@@ -137,7 +139,6 @@
       background: transparent;
       text-align: center;
       font-size: 1em;
-      transition: .2s linear;
       cursor: pointer;
     }
   
@@ -151,17 +152,17 @@
     }
   }
 
-  // .tabs-header.actions button.active::before {
-  //   border-radius: 6px 6px 0 0;
-  // }
-
-  .form {
-    padding: 15px;
+  .forms {
     position: relative;
+    padding: 15px;
     background-color: white;
+    border-radius: 0 0 6px 6px;
+    &::before {
+      border-radius: 0 0 6px 6px;
+    }
   }
 
-  .form::before, .tabs-header.actions button.active::before {
+  .forms::before, .tabs-header.actions button.active::before {
     position: absolute;
     display: block;
     content: '';

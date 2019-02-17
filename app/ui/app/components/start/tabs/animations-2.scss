@@ -1,0 +1,101 @@
+// @import '../../root/styles/variables';
+
+// /*
+// ** @Header
+// */
+// .loginSignup-header {
+
+// }
+
+// /*
+// ** @Content
+// */
+// .loginSignup-content {
+//   position: relative;
+// }
+
+
+// /*
+// ** @Header item
+// */
+// .loginSignup-HI {
+//   &:hover {
+//     background-color: rgb(248, 248, 248);
+//   }
+// }
+
+// .loginSignup-HI-active {
+//   background-color: $blue;
+//   color: white;
+  
+//   &:hover {
+//     background-color: $blue;
+//   }
+// }
+
+// /*
+// ** @Content item
+// */
+// .loginSignup-CI {
+//   // transition: .2s linear;
+// }
+
+// .loginSignup-CI-hidden {
+// //   display: none;
+//   width: 450px;
+//   position: absolute;
+//   top: 0;
+//   left: 100%;
+//   opacity: 0;
+//   width: 450px;
+// }
+
+// .loginSignup-CI-activating {
+//   display: block;
+//   width: 450px;
+//   position: absolute;
+//   animation-name: activating;
+//   animation-duration: .5s;
+//   animation-fill-mode: forwards;
+//   z-index: 1000;
+// }
+
+// .loginSignup-CI-active {
+
+// }
+
+// .loginSignup-CI-hiding {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 450px;
+//   animation-name: hiding;
+//   animation-duration: .5s;
+//   animation-fill-mode: forwards;
+//   z-index: 999;
+// }
+
+// /*
+// ** @Animations
+// */
+// @keyframes activating {
+//   from {
+//     left: 100%;
+//     opacity: 0;
+//   }
+//   to {
+//     left: 0px;
+//     opacity: 1;
+//   }
+// }
+
+// @keyframes hiding {
+//   from {
+//     transform: scale(1);
+//     opacity: 1;
+//   }
+//   to {
+//     transform: scale(0.7);
+//     opacity: 0;
+//   }
+// }

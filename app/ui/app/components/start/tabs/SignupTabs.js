@@ -19,7 +19,7 @@ const SignupTabs = new Tabs({
     ]
   },
   content: {
-    className: 'signup-form',
+    className: 'forms',
     items: [
       clientFormBlock,
       execFormBlock

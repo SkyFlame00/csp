@@ -43,4 +43,4 @@ const defaultAnim = function() {
   };
 };
 
-module.exports = defaultAnim;
+module.exports = new defaultAnim();

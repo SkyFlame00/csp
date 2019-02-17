@@ -1,5 +1,7 @@
 const defaultAnim = require('./default');
+const loginSignupSwitch = require('./loginSignupSwitch');
 
 module.exports = {
-  defaultAnim
+  defaultAnim,
+  loginSignupSwitch
 };

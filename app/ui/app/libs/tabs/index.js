@@ -25,9 +25,9 @@ const Tabs = function(opts) {
     contentItem: null
   };
 
-  const anim = anims[opts.animation.name] ?
-    new anims[opts.animation.name] :
-    new anims['defaultAnim'];
+  const anim = anims[opts.animation] ?
+    anims[opts.animation] :
+    anims['defaultAnim'];
 
   const tabs = {
     header: {
@@ -48,6 +48,11 @@ const Tabs = function(opts) {
   header.addEventListener('click', evt => {
     const link = evt.target;
     const result = headerItems.find(item => item === link.closest('.tabs-header-item'));
+
+    if (!result || result === tabs.active.headerItem) {
+      return;
+    }
+
     if (result) {
       anim.handler.call(tabs, evt);
     }
