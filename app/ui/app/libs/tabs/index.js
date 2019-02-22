@@ -25,9 +25,9 @@ const Tabs = function(opts) {
     contentItem: null
   };
 
-  const anim = anims[opts.animation] ?
-    anims[opts.animation] :
-    anims['defaultAnim'];
+  const anim = anims[opts.animation.name] ?
+    new anims[opts.animation.name] :
+    new anims['defaultAnim'];
 
   const tabs = {
     header: {
@@ -58,7 +58,7 @@ const Tabs = function(opts) {
     }
   });
 
-  anim.initialize.call(tabs, opts.animation.initializer || 1);
+  anim.initialize.call(tabs, opts.animation.initializer - 1 || 0, opts.animation.params);
 
   return tabs;
 };

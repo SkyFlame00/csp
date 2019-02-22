@@ -34,7 +34,6 @@ const loginSignupSwitch = function() {
   }
 
   function gotoTab(tab) {
-    tab--;
     const newHeaderItem = this.header.items[tab];
     const newContentItem = this.content.items[tab];
 
@@ -51,7 +50,6 @@ const loginSignupSwitch = function() {
   }
 
   function initialize(tab) {
-    tab--;
     this.header.element.classList.add('loginSignup-header');
     this.content.element.classList.add('loginSignup-content');
     this.header.items.forEach(item => item.classList.add('loginSignup-HI'));
@@ -77,4 +75,4 @@ const loginSignupSwitch = function() {
   };
 };
 
-module.exports = new loginSignupSwitch();
+module.exports = loginSignupSwitch;

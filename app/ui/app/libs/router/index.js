@@ -110,7 +110,6 @@ Router.prototype.navigate = function(link) {
     return;
   }
   route.handler(route.params);
-  console.log(link)
   history.pushState('', '', '/' + link);
 };
 

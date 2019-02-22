@@ -1,9 +1,6 @@
 const Root = require('csp-app/components/root');
-// const StartPage = require('csp-app/components/startpage');
 const Dashboard = require('csp-app/components/dashboard');
 const MainController = require('csp-app/components/root/MainController');
-const app = require('csp-app/state.js');
-// const Test = require('csp-app/components/test');
 
 const Router = require('csp-app/libs/router')
 const Start = require('csp-app/components/start/start');
@@ -29,59 +26,12 @@ document.addEventListener('DOMContentLoaded', function(evt) {
 
     console.log(path);
 
-    // path = path[0] === '/' ? path.substr(1): path;
-    // path = path[path.length-1] === '/' ? path.substr(0, path.length-1) : path;
-
-    // let routes = [
-    //     {
-    //         regexp: /^genres$/gi,
-    //         handler: 'genres handler'
-    //     },
-    //     {
-    //         regexp: /^genres\/([^\/\s]+)(?:\/|$)/gi,
-    //         paramsNames: ['genre'],
-    //         children: [
-    //             {
-    //                 regexp: /^\/$/gi,
-    //                 handler: 'genre handler'
-    //             },
-    //             {
-    //                 regexp: /^movies(?:\/|$)/gi,
-    //                 children: [
-    //                     {
-    //                         regexp: /^\/$/gi,
-    //                         handler: 'movies handler'
-    //                     },
-    //                     {
-    //                         regexp: /^([^\/\s]+)$/gi,
-    //                         paramsNames: ['movie'],
-    //                         handler: 'movie handler'
-    //                     }
-    //                 ]
-    //             }
-    //         ]
-    //     }
-    // ];
-
     const router = new Router();
-    // router
-    //     .addRoute('genres/(:genre)/movies', function(){console.log('route 1')})
-    //     .addRoute('genres/(:genre)/movies/(:movie)', function(){console.log('route 2')})
-    //     .addRoute('lib/(:book)', function(){console.log('route 3')})
 
-    // console.log(router.routes)
-
-    // console.log('Router: ', Router)
-    // console.log('Router.prototype: ', Router.prototype)
-    // console.log('router: ', router);
-
-    // console.log('constructor1: ', Router.prototype.constructor === Router)
-    // console.log('constructor2: ', router.__proto__.constructor === Router)
     router
         .addRoute('/', function() {
             MainController.renderChain([new Start()])
         })
     
-
     router.navigate(path)
 });

@@ -24,12 +24,18 @@
   }
 }
 
-.loginSignup-HI-active {
-  background-color: $blue;
-  color: white;
-  
-  &:hover {
+.start-tabs {
+  .tabs-header-item.loginSignup-HI-active {
     background-color: $blue;
+    color: white;
+    
+    &:hover {
+      background-color: $blue;
+    }
+
+    .rg-btn::before {
+      display: none;
+    }
   }
 }
 
@@ -101,3 +107,20 @@
     opacity: 0;
   }
 }
+
+
+/*
+** Tabs flow
+*/
+
+.cmp_start {
+  .tabs-flow-content {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .tabs-flow-content, .tabs-flow-CI {
+    transition-timing-function: ease;
+  }
+}
+
