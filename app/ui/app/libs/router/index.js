@@ -1,6 +1,3 @@
-const app = require('csp-app/state.js');
-const MainController = require('csp-app/components/root/MainController.js');
-
 const Router = function() {
   this.routes = [];
 };
@@ -28,23 +25,32 @@ Router.prototype.getParamsNames = function(route) {
   return paramsNames;
 }
 
-Router.prototype.addRoute = function(route, handler) {
+Router.prototype.addRoute = function(route, obj) {
   route = this.trimRoute(route);
   let paramsNames = this.getParamsNames(route);
-  let regexpStr = route.replace(this.regexpParams, '[\\w\\d\-_]+');
+  let regexpStr = route.replace(this.regexpParams, '([\\w\\d\-_]+)');
   let regexp = RegExp(`^${regexpStr}(\\/|$)`, 'gi');
 
   let routeObj = {
+    type: 'route',
     regexp: regexp,
     paramsNames: paramsNames
   };
 
-  if (typeof handler === 'function') {
-    routeObj.handler = handler;
+  if (typeof obj === 'function') {
+    /**
+     * Route handler will be invoked when user goes to the corresponding
+     * route and not terminated by middlewares underway
+     * @function handler
+     * @param {object} handlerParams - params may be given when Router.navigate is invoked
+     * @param {object} routeParams - params existing on the route if any
+     * @param {any} arg - this is given by the last middleware if any
+     */
+    routeObj.handler = obj;
   }
 
-  else if (handler instanceof Array) {
-    routeObj.children = handler;
+  else if (obj instanceof Array) {
+    routeObj.children = obj;
   }
 
   else {
@@ -56,27 +62,48 @@ Router.prototype.addRoute = function(route, handler) {
   return this;
 };
 
-Router.prototype.getRoute = function(link, routes = this.routes, params = {}) {
+Router.prototype.getRoute = function(link, routes = this.routes) {
   link = link === '' ? '/' : link;
+  let middlewares = [];
+  let params = {};
 
   for (let i = 0; i < routes.length, route = routes[i]; i++) {
+    if (route.type == 'middleware') {
+      middlewares.push(route.fn);
+      continue;
+    }
+
+    if (route.type == 'routes') {
+      const childrenCheck = this.getRoute(link, route.routes);
+      if (childrenCheck !== null) {
+        childrenCheck.middlewares = middlewares.concat(childrenCheck.middlewares);
+        childrenCheck.params = Object.assign(params, childrenCheck.params);
+        return childrenCheck;
+      }
+      continue;
+    }
+
     let regexp = route.regexp;
     let result = regexp.exec(link);
+    let newLink;
 
     if (result && result.length > 1) {
-      for (let idx = 1; idx < result.length; idx++) {
+      params = {};
+      for (let idx = 1; idx < result.length - 1; idx++) {
         params[route.paramsNames[idx-1]] = result[idx];
       }
     }
 
     if (regexp.lastIndex > 0) {
-      link = link.substr(regexp.lastIndex);
+      newLink = link.substr(regexp.lastIndex);
     }
 
-    if (regexp.lastIndex > 0 && link.length > 0) {
+    if (regexp.lastIndex > 0 && newLink.length > 0) {
       if (route.children && route.children.length > 0) {
-        let childrenCheck = this.getRoute(link, route.children, params);
+        let childrenCheck = this.getRoute(newLink, route.children);
         if (childrenCheck !== null) {
+          childrenCheck.middlewares = middlewares.concat(childrenCheck.middlewares);
+          childrenCheck.params = Object.assign(params, childrenCheck.params);
           return childrenCheck;
         }
       }
@@ -87,13 +114,19 @@ Router.prototype.getRoute = function(link, routes = this.routes, params = {}) {
       if (route.handler) {
         return {
           handler: route.handler,
-          params: params
+          params: params,
+          middlewares: middlewares
         };
       }
       
+      // Since it's done and link is (actually, will be when we
+      // get into recursion) '/', so we look up children to
+      // to match the root '/' which must exist there
       if (route.children) {
-        let childrenCheck = this.getRoute(link, route.children, params);
+        let childrenCheck = this.getRoute(newLink, route.children);
         if (childrenCheck !== null) {
+          childrenCheck.middlewares = middlewares.concat(childrenCheck.middlewares);
+          childrenCheck.params = Object.assign(params, childrenCheck.params);
           return childrenCheck;
         }
       }
@@ -102,15 +135,64 @@ Router.prototype.getRoute = function(link, routes = this.routes, params = {}) {
   return null;
 };
 
-Router.prototype.navigate = function(link) {
+Router.prototype.addRoutes = function(routes) {
+  this.routes.push({
+    type: 'routes',
+    routes: routes
+  });
+
+  return this;
+};
+
+Router.prototype.addMiddleware = function(fn) {
+  this.routes.push({
+    type: 'middleware',
+    fn: fn
+  });
+
+  return this;
+};
+
+Router.prototype.navigate = function(link, handlerParams) {
   link = this.trimRoute(link);
   let route = this.getRoute(link);
   if (!route) {
-    console.log('Error while navigating route');
+    console.log('No suitable route has been found');
     return;
   }
-  route.handler(route.params);
+  // route.handler(route.params);
+  fns = route.middlewares.concat([route.handler.bind(null, handlerParams)]);
+  for (let i = fns.length - 1; i > 0, fn = fns[i]; i--) {
+    if (i !== fns.length - 1) {
+      fns[i] = fn.bind(null, fns[i+1], route.params);
+    }
+    else {
+      fns[i] = fn.bind(null, route.params);
+    }
+  }
+  fns[0]();
   history.pushState('', '', '/' + link);
+};
+
+Router.prototype.testNav = function(link, handlerParams) {
+  link = this.trimRoute(link);
+  let route = this.getRoute(link);
+  if (!route) {
+    console.log('No suitable route has been found')
+    return;
+  }
+  // console.log(route);
+  fns = route.middlewares.concat([route.handler.bind(null, handlerParams)]);
+  for (let i = fns.length - 1; i > 0, fn = fns[i]; i--) {
+    if (i !== fns.length - 1) {
+      fns[i] = fn.bind(null, fns[i+1], route.params);
+    }
+    else {
+      fns[i] = fn.bind(null, route.params);
+    }
+  }
+  console.log(fns)
+  fns[0]();
 };
 
 const Subrouter = function() {

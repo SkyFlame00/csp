@@ -1,5 +1,6 @@
 const Form = require('csp-app/libs/forms');
 const {minLength, maxLength, startsWithNumber} = require('csp-app/libs/forms/validators');
+const http = require('csp-app/libs/http')
 
 const username = {
   keyName: 'username',
@@ -107,8 +108,20 @@ const execForm = new Form({
   validators: [],
   submit: {
     handler: function(values, evt) {
-      evt.preventDefault();
-      console.log('Form is clean');
+      const body = {
+        username: values.username,
+        email: values.email,
+        password: values.password
+      };
+
+      http.post('auth/signup/exec', body)
+        .then(response => {
+          console.log(JSON.parse(response))
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      ;
     }
   },
   controls: [

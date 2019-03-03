@@ -1,22 +1,28 @@
-const Root = require('csp-app/components/root');
+const Root = require('csp-app/components/main/rootComponent');
 const Dashboard = require('csp-app/components/dashboard');
-const MainController = require('csp-app/components/root/MainController');
+const MainController = require('csp-app/components/main');
 
 const Router = require('csp-app/libs/router')
-const Start = require('csp-app/components/start/start');
+const Start = require('csp-app/components/start');
+const Test = require('csp-app/components/test')
+
+const router = new Router();
+const http = require('csp-app/libs/http');
+
+http.configure({ location: 'http://localhost:3000' });
 
 document.addEventListener('click', evt => {
     const link = evt.target.closest('a');
 
     if (link && link.dataset.route) {
-        Router.navigate(link.dataset.route);
+        router.navigate(link.dataset.route);
     }
 });
 
 window.addEventListener('popstate', evt => {
     console.log('page changed: ', document.location);
     console.log(evt);
-    Router.navigate(document.location.pathname);
+    router.navigate(document.location.pathname);
 });
 
 document.addEventListener('DOMContentLoaded', function(evt) {
@@ -24,13 +30,15 @@ document.addEventListener('DOMContentLoaded', function(evt) {
     const rootInstance = Root.create();
     MainController.initialize(rootInstance);
 
-    console.log(path);
-
-    const router = new Router();
-
     router
         .addRoute('/', function() {
             MainController.renderChain([new Start()])
+        })
+        .addRoute('dashboard', function() {
+            MainController.renderChain([Test])
+        })
+        .addRoute('login', function() {
+            
         })
     
     router.navigate(path)

@@ -1,5 +1,8 @@
 const Form = require('csp-app/libs/forms');
 const {minLength, maxLength, startsWithNumber} = require('csp-app/libs/forms/validators');
+const http = require('csp-app/libs/http');
+const {render} = require('csp-app/components/main');
+const Dashboard = require('csp-app/components/dashboard');
 
 const username = {
   keyName: 'username',
@@ -49,9 +52,24 @@ const password = {
 const loginForm = new Form({
   validators: [],
   submit: {
-    handler: function(values, evt) {
-      evt.preventDefault();
-      console.log('Form is clean');
+    handler: function(values) {
+      const {username, password} = values;
+      const data = {
+        username: username,
+        password: password
+      };
+
+      http.post('auth/login', data)
+        .then(res => {
+          if (!res.success)
+            throw new Error(res.error.message);
+
+          window.localStorage.setItem('auth_token', res.data.token);
+          render([new Dashboard()]);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
   },
   controls: [

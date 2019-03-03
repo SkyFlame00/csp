@@ -1,7 +1,3 @@
-// const bindValidators = function(control, validators) {
-//   return validators.map(validator => validator.bind(control));
-// };
-
 const validate = function(control) {
   control = control || this;
   let add = {};
@@ -9,33 +5,22 @@ const validate = function(control) {
   let items = control.errors.items;
   let validators = control.validators;
 
-  // validators = validators.filter(validator => {
-  //   let result = validator.conditions.every(fn => fn(control.value));
-  //   if (!result && items[validator.name]) {
-  //     remove[validator.name] = true;
-  //   }
-  //   return result;
-  // });
-
-  if (control.value === '') {
+  if (!control.required && control.value === '') {
     Object.keys(items).forEach(item => {
       if (!!items[item]) remove[item] = true;
     });
   }
 
   if (control.required && control.value === '') {
-    let element = document.createElement('li');
-    element.innerHTML = 'This field is required';
-    items['required'] = {
-      ref: element
+    if (!items['required']) {
+      let element = document.createElement('li');
+      element.innerHTML = 'This field is required';
+      items['required'] = {
+        ref: element
+      }
+      control.errors.ref.appendChild(element);
     }
-    control.errors.ref.appendChild(element);
-    // return;
   }
-
-  // if (!control.required && control.value === '') {
-  //   return;
-  // }
 
   if (control.value.length > 0 && !!items['required']) {
     remove['required'] = true;
@@ -127,8 +112,6 @@ const tagInput = function(options) {
       controlRef.setAttribute(attr.name, attr.value);
     });
   }
-
-  // let validators = bindValidators(control, options.validators);
 
   let control = {
     keyName: options.keyName || '',

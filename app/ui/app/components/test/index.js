@@ -10,15 +10,13 @@ const Test = {
         const element = temp.firstElementChild
         
         return {
-            reference: element,
-            actions: {
-                render: function(DOMTree) {
-                    element.innerHTML = '';
-                    element.appendChild(DOMTree);
-                }
+            element: element,
+            render: function(DOMTree) {
+                element.innerHTML = '';
+                element.appendChild(DOMTree);
             }
         }
     }
 };
 
-module.exports = Test;
+module.exports = Test.instantiate();

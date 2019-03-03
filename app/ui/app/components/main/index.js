@@ -1,5 +1,3 @@
-const app = require('csp-app/state.js');
-
 const MainController = {
   root: null,
   path: [],
@@ -13,6 +11,9 @@ const MainController = {
     this.root = rootInstance;
     document.body.innerHTML = '';
     document.body.appendChild(rootInstance.reference);
+  },
+  render: function(components) {
+    this.renderChain(components);
   }
 };
 

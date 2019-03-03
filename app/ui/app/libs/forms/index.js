@@ -31,7 +31,11 @@ const Form = function(options) {
   submitWrapper.innerHTML = '<input type="submit" value="Submit" />';
   submitRef = submitWrapper.querySelector('input[type="submit"]');
 
-  [errorsWrapper, ...formControlsRefs, submitWrapper]
+  [
+    errorsWrapper,
+    ...formControlsRefs,
+    submitWrapper
+  ]
     .forEach(item => wrapper.appendChild(item));
   
   let form = {

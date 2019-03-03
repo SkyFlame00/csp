@@ -7,14 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "run": "npm run-script gulp && npm run-script start-server",
     "gulp": "gulp --gulpfile app/ui/gulpfile.js regular",
-    "start-server": "node app/server.js"
+    "start-server": "node app/ui/server.js && node app/api/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "browserify": "^16.2.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "gulp": "^4.0.0",
@@ -25,6 +27,7 @@
     "gulp-uglify-es": "^1.0.4",
     "gulplog": "^1.0.0",
     "gutil": "^1.6.4",
+    "jsonwebtoken": "^8.5.0",
     "pg": "^7.7.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
