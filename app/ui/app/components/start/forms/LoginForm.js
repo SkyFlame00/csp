@@ -1,7 +1,7 @@
 const Form = require('csp-app/libs/forms');
 const {minLength, maxLength, startsWithNumber} = require('csp-app/libs/forms/validators');
 const http = require('csp-app/libs/http');
-const {render} = require('csp-app/components/main');
+const MainController = require('csp-app/components/main');
 const Dashboard = require('csp-app/components/dashboard');
 
 const username = {
@@ -65,7 +65,7 @@ const loginForm = new Form({
             throw new Error(res.error.message);
 
           window.localStorage.setItem('auth_token', res.data.token);
-          render([new Dashboard()]);
+          MainController.render([new Dashboard()]);
         })
         .catch((err) => {
           console.log(err.message);

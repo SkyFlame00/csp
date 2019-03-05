@@ -2,9 +2,17 @@ const MainController = {
   root: null,
   path: [],
   renderChain: function(components) {
-    components.reduce((accumulator, component) => {
-      accumulator.render(component.element);
-      return component;
+    return components.reduce((accumulator, component) => {
+      return Promise.all([accumulator, component])
+        .then(components => {
+          const accumulator = components[0];
+          const component = components[1];
+
+          console.log(components)
+          accumulator.render(component.element);
+
+          return component;
+        });
     }, this.root);
   },
   initialize: function(rootInstance) {
@@ -13,7 +21,7 @@ const MainController = {
     document.body.appendChild(rootInstance.reference);
   },
   render: function(components) {
-    this.renderChain(components);
+    return this.renderChain(components);
   }
 };
 
