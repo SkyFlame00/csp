@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const {privateKey} = require('csp-app-api/resources/keys');
-const {extractBearerToken, returnError} = require('csp-app-api/resources/functions');
+const {extractBearerToken, returnError} = require('csp-app-api/main').functions;
 const {db} = require('csp-app-api/main');
 
 const checkAuth = function(req, res, next) {

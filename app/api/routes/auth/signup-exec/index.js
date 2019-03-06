@@ -3,29 +3,30 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {MissingDataError} = require('csp-app-api/main').objects.errors;
-const {expiresIn} = require('../common');
+const {
+  expiresIn,
+  hashPassword,
+  createToken,
+  returnToken,
+  catchError,
+  checkExistence
+} = require('../common');
+const {generalTransporter: transporter} = require('csp-app-api/main').objects.mail;
+const {transactions} = require('csp-app-api/main').functions.queries;
 
-const saltRounds = 10;
+// const saltRounds = 10;
 
-const keysDir = path.resolve(__dirname, '../keys');
-const privateKey = fs.readFileSync(`${keysDir}/private.key`, 'utf8');
+// const keysDir = path.resolve(__dirname, '../keys');
+// const privateKey = fs.readFileSync(`${keysDir}/private.key`, 'utf8');
 
-function checkExistence(qRes) {
-  if (qRes.rows.length > 0) {
-    throw new Error('The user with the supplied login already exists');
-  }
+// function hashPassword(password) {
+//   return bcrypt.hash(password, saltRounds);
+// }
 
-  return;
-}
-
-function hashPassword(password) {
-  return bcrypt.hash(password, saltRounds);
-}
-
-function createToken(payload, expiresIn = '30d') {
-  const options = {expiresIn: expiresIn, algorithm: 'HS256'};
-  return jwt.sign(payload, privateKey, options);
-}
+// function createToken(payload, expiresIn = '30d') {
+//   const options = {expiresIn: expiresIn, algorithm: 'HS256'};
+//   return jwt.sign(payload, privateKey, options);
+// }
 
 function signupExec(db, req, res) {
   const {
@@ -57,8 +58,9 @@ function signupExec(db, req, res) {
     });
   }
 
-  db.query('SELECT username FROM users WHERE username=$1 LIMIT 1', [username])
+  const userRegisteredPromise = db.query('SELECT username FROM users WHERE username=$1 LIMIT 1', [username])
     .then(checkExistence)
+    .then(transactions.begin)
     .then(hashPassword.bind(null, password))
     .then((hashedPassword) => {
       const sql = `
@@ -67,33 +69,31 @@ function signupExec(db, req, res) {
       
       return db.query(sql, [username, email, hashedPassword])
     })
+  ;
+  
+  const tokenCreatedPromise = userRegisteredPromise
     .then(createToken.bind(null, {username: username}, expiresIn))
-    .then((token) => {
-      return res.json({
-        success: true,
-        data: {
-          token: token
-        }
+  ;
+
+  const emailSentPromise = userRegisteredPromise
+    .then(() => {
+      return transporter.sendMail({
+        from: 'CSP Notification Service t.a.s.98@ya.ru',
+        to: email,
+        subject: 'Confirm your registration',
+        html: ''
       });
     })
-    .catch((err) => {
-      let answer = {success: false};
+  ;
 
-      if (err.name && err.message) {
-        answer.error = {
-          name: err.name,
-          message: err.message
-        };
-      }
-      else {
-        answer.error = {
-          name: 'Unrecognized error',
-          message: err.toString()
-        }
-      }
-
-      return res.json(answer);
-    });
+  Promise.all([tokenCreatedPromise, emailSentPromise])
+    .then(transactions.commit)
+    .then(returnToken.bind(null, res))
+    .catch(err => {
+      transactions.rollback();
+      catchError(res, err);
+    })
+  ;
 }
 
 module.exports = signupExec;

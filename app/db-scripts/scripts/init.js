@@ -1,7 +1,7 @@
 const client = require('../connections/db');
 
 function init() {
-  const sql = 
+  const createUsers = 
     `CREATE TABLE users (
       id serial PRIMARY KEY,
       login varchar(30),
@@ -12,8 +12,18 @@ function init() {
       password varchar(60)
     )`;
 
-  client.query(sql)
-    .then(res => console.log('Inititalized'))
+  const createVerificationTokens =
+    `CREATE TABLE verificationTokens (
+      id serial NOT NULL,
+      user_id integer NOT NULL,
+      token varchar(16) NOT NULL,
+      created_at timestamp NOT NULL,
+      PRIMARY KEY (id, user_id)
+    )`;
+
+  client.query(createUsers)
+    .then(res => client.query(createVerificationTokens))
+    .then(res => console.log('Initialization has been completed'))
     .catch(err => console.log(err));
 }
 

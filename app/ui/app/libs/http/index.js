@@ -45,6 +45,7 @@ function makeRequest(method, url, body, options) {
       );
     }
 
+    // Each time along with the request we send auth_token if it exists
     this.setAuthorizationHeader(xhr);
 
     xhr.addEventListener('load', () => {

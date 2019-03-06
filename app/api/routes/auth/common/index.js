@@ -17,7 +17,7 @@ function createToken(payload, expiresIn = '30d', id) {
 }
 
 function returnToken(res, token) {
-  return res.json({
+  res.json({
     success: true,
     data: {
       token: token
@@ -41,7 +41,15 @@ function catchError(res, err) {
     }
   }
 
-  return res.json(answer);
+  res.json(answer);
+}
+
+function checkExistence(qRes) {
+  if (qRes.rows.length > 0) {
+    throw new Error('The user with the supplied login already exists');
+  }
+
+  return;
 }
 
 module.exports = {
@@ -49,5 +57,6 @@ module.exports = {
   createToken,
   expiresIn: '30d',
   returnToken,
-  catchError
+  catchError,
+  checkExistence
 };

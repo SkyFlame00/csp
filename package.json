@@ -28,6 +28,7 @@
     "gulplog": "^1.0.0",
     "gutil": "^1.6.4",
     "jsonwebtoken": "^8.5.0",
+    "nodemailer": "^5.1.1",
     "pg": "^7.7.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
