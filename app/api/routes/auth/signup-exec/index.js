@@ -1,34 +1,36 @@
-const path = require('path');
-const fs = require('fs');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const {MissingDataError} = require('csp-app-api/main').objects.errors;
+const {db} = require('csp-app-api/main');
+const {MissingDataError, DatabaseError} = require('csp-app-api/main').objects.errors;
 const {
-  expiresIn,
+  expirations,
   hashPassword,
   createToken,
-  returnToken,
+  sendToken,
   catchError,
-  checkExistence
+  checkExistence,
+  createVerificationToken,
+  sql
 } = require('../common');
 const {generalTransporter: transporter} = require('csp-app-api/main').objects.mail;
 const {transactions} = require('csp-app-api/main').functions.queries;
+const {location} = require('csp-app-api/main');
 
-// const saltRounds = 10;
+function insertVerificationToken(verificationToken, userId) {
+  const expiresAt = new Date(Date.now() + expirations.verificaiton);
+  return db.query(sql.insertVerificationToken, [userId, verificationToken, expiresAt]);
+}
 
-// const keysDir = path.resolve(__dirname, '../keys');
-// const privateKey = fs.readFileSync(`${keysDir}/private.key`, 'utf8');
+function sendVerificationMsg(email, verificationToken, userId) {
+  const link = `${location}/signup/verify?id=${userId}&token=${verificationToken}`;
 
-// function hashPassword(password) {
-//   return bcrypt.hash(password, saltRounds);
-// }
+  return transporter.sendMail({
+    from: 'CSP Notification Service t.a.s.98@ya.ru',
+    to: email,
+    subject: 'Confirm your registration',
+    html: `<b>Please, follow this link to activate your account:</b> <a href="${link}">${link}</a>`
+  });
+}
 
-// function createToken(payload, expiresIn = '30d') {
-//   const options = {expiresIn: expiresIn, algorithm: 'HS256'};
-//   return jwt.sign(payload, privateKey, options);
-// }
-
-function signupExec(db, req, res) {
+function signupExec(req, res) {
   const {
     username,
     email,
@@ -58,37 +60,42 @@ function signupExec(db, req, res) {
     });
   }
 
-  const userRegisteredPromise = db.query('SELECT username FROM users WHERE username=$1 LIMIT 1', [username])
+  const userRegisteredPromise = db.query(sql.getUsernameByUsername, [username])
     .then(checkExistence)
     .then(transactions.begin)
     .then(hashPassword.bind(null, password))
-    .then((hashedPassword) => {
-      const sql = `
-        INSERT INTO users(username, email, password)
-        VALUES ($1, $2, $3)`;
-      
-      return db.query(sql, [username, email, hashedPassword])
-    })
+    .then(hashedPwd => db.query(sql.insertUser, [username, email, hashedPwd]))
   ;
   
-  const tokenCreatedPromise = userRegisteredPromise
-    .then(createToken.bind(null, {username: username}, expiresIn))
+  const authTokenCreatedPromise = userRegisteredPromise
+    .then(createToken.bind(null, {username: username}, expirations.auth))
   ;
 
-  const emailSentPromise = userRegisteredPromise
-    .then(() => {
-      return transporter.sendMail({
-        from: 'CSP Notification Service t.a.s.98@ya.ru',
-        to: email,
-        subject: 'Confirm your registration',
-        html: ''
-      });
+  const verificationToken = createVerificationToken();
+
+  const getUserIdPromise = userRegisteredPromise
+    .then(() => db.query(sql.getUserIdByUsername, [username]))
+    .then((res) => {
+      if (!res.rows[0])
+        throw new DatabaseError('Cannot fetch user id with the supplied username');
+      
+      return res.rows[0].id;
     })
   ;
 
-  Promise.all([tokenCreatedPromise, emailSentPromise])
+  const insertVTPromise = getUserIdPromise
+    .then(insertVerificationToken.bind(null, verificationToken))
+  ;
+
+  const emailSentPromise = Promise.all([getUserIdPromise, insertVTPromise])
+    .then(arr => arr[0])
+    .then(sendVerificationMsg.bind(null, email, verificationToken))
+  ;
+
+  Promise.all([authTokenCreatedPromise, emailSentPromise])
+    .then(array => array[0])
+    .then(sendToken.bind(null, res))  
     .then(transactions.commit)
-    .then(returnToken.bind(null, res))
     .catch(err => {
       transactions.rollback();
       catchError(res, err);

@@ -1,13 +1,15 @@
 const bcrypt = require('bcrypt');
 const {
   createToken,
-  expiresIn,
-  returnToken,
+  expirations,
+  sendToken,
   catchError
 } = require('../common');
 const {AuthenticationError} = require('csp-app-api/main').objects.errors;
+const {db} = require('csp-app-api/main');
 
-const login = function(db, req, res) {
+const login = function(req, res) {
+  console.log('body: ',req.body)
   const {username, password} = req.body;
   const sql = 'SELECT id, password FROM users WHERE username=$1';
 
@@ -16,7 +18,7 @@ const login = function(db, req, res) {
       if (res.rows.length === 0)
         throw new AuthenticationError('User with the supplied username does not exist');
 
-      // May be better to use external variable instead of doing nested promise
+      // Redo it somehow so there is no nested promise any more
       return new Promise((resolve, reject) => {
         bcrypt.compare(password, res.rows[0].password)
           .then(passwordMatch => resolve({
@@ -32,8 +34,8 @@ const login = function(db, req, res) {
       
       return res.userId;
     })
-    .then(createToken.bind(null, {username: username}, expiresIn))
-    .then(returnToken.bind(null, res))
+    .then(createToken.bind(null, {username: username}, expirations.auth))
+    .then(sendToken.bind(null, res))
     .catch(catchError.bind(null, res));
 };
 

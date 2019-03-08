@@ -1,0 +1,1 @@
+UPDATE users SET verified='t' WHERE id=$1;

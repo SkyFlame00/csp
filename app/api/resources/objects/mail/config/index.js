@@ -4,7 +4,7 @@ const general = {
   secure: true,
   auth: {
     user: 't.a.s.98@ya.ru',
-    pass: 'dalonk98'
+    pass: '][pPwtssl3001'
   }
 };
 

@@ -18,7 +18,8 @@ function init() {
       user_id integer NOT NULL,
       token varchar(16) NOT NULL,
       created_at timestamp NOT NULL,
-      PRIMARY KEY (id, user_id)
+      PRIMARY KEY (id, user_id),
+      FOREIGN KEY (user_id) REFERENCES users(id)
     )`;
 
   client.query(createUsers)

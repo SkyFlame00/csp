@@ -116,7 +116,7 @@ const execForm = new Form({
 
       http.post('auth/signup/exec', body)
         .then(response => {
-          console.log(JSON.parse(response))
+          console.log(response)
         })
         .catch(error => {
           console.log(error)

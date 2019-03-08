@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {checkAuth} = require('csp-app-api/resources/middlewares');
+// const {checkAuth} = require('csp-app-api/resources/middlewares');
 const userData = require('./user-data');
 
 // function users(app, db) {
@@ -9,7 +9,7 @@ const userData = require('./user-data');
 //   });
 // }
 
-router.use(checkAuth);
+// router.use(checkAuth);
 router.get('/getUserData', userData);
 
 

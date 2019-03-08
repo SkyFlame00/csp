@@ -1,4 +1,4 @@
-const MainController = {
+const MainController = self = {
   root: null,
   path: [],
   renderChain: function(components) {
@@ -8,20 +8,19 @@ const MainController = {
           const accumulator = components[0];
           const component = components[1];
 
-          console.log(components)
           accumulator.render(component.element);
 
           return component;
         });
-    }, this.root);
+    }, self.root);
   },
   initialize: function(rootInstance) {
-    this.root = rootInstance;
+    self.root = rootInstance;
     document.body.innerHTML = '';
     document.body.appendChild(rootInstance.reference);
   },
   render: function(components) {
-    return this.renderChain(components);
+    return self.renderChain(components);
   }
 };
 

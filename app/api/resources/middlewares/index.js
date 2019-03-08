@@ -1,5 +1,5 @@
-const checkAuth = require('./checkAuth');
+const extractPayload = require('./extractPayload');
 
 module.exports = {
-  checkAuth
+  extractPayload
 };

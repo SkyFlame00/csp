@@ -11,6 +11,8 @@ const http = require('csp-app/libs/http');
 
 http.configure({ location: 'http://localhost:3000' });
 
+const verificationRoute = require('csp-app/routes/auth/verification');
+
 document.addEventListener('click', evt => {
     const link = evt.target.closest('a');
 
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function(evt) {
         .addRoute('login', function() {
             
         })
+        .addRoute('signup/verify', verificationRoute)
     
     router.navigate(path)
 });

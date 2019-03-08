@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const pg = require('pg');
 const app = express();
 const cors = require('cors')
 
@@ -19,17 +18,8 @@ const uiServerLocation = 'http://localhost:3001';
 
 app.use(cors());
 
-// const db = new pg.Pool({
-//   user: 'skyflame',
-//   database: 'csp',
-//   password: '1234',
-//   host: 'localhost',
-//   port: 5432
-// });
-// db.connect();
-
 const {db} = require('csp-app-api/main');
-mountRoutes(app,db)
+mountRoutes(app, db)
 
 const port = 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
