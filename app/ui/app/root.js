@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function(evt) {
 
     router
         .addRoute('/', function() {
-            MainController.renderChain([new Start()])
+            MainController.renderChain([Start])
         })
         .addRoute('dashboard', function() {
             MainController.renderChain([Test])

@@ -10,7 +10,7 @@ const gutil = require('gutil');
 const uglify = require('gulp-uglify-es').default;
 
 function js() {
-    return browserify('./app/app.js')
+    return browserify('./app/root.js')
         .bundle()
         .pipe(source('source.js'))
         .pipe(buffer())
