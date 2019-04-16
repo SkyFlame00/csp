@@ -3,6 +3,15 @@
   src: url('fonts/open-sans.ttf');
 }
 
+@font-face {
+  font-family: 'icons';
+  src:  url('fonts/icons/icomoon.eot?27w32g');
+  src:  url('fonts/icons/icomoon.eot?27w32g#iefix') format('embedded-opentype'),
+    url('fonts/icons/icomoon.ttf?27w32g') format('truetype'),
+    url('fonts/icons/icomoon.woff?27w32g') format('woff'),
+    url('fonts/icons/icomoon.svg?27w32g#icomoon') format('svg');
+}
+
 .clearfix::after {
   display: block;
   content: '';
@@ -26,4 +35,47 @@ html, body, #app {
 
 #app {
   overflow: hidden;
+}
+
+/* Icons */
+
+.i {
+  font-family: 'icons';
+  font-style: normal;
+}
+
+.i-chat::before {  
+  content: "\e900";
+}
+
+.i-survey::before {
+  content: "\e901";
+}
+
+.i-project::before {
+  content: "\e902";
+}
+
+.i-users::before {
+  content: "\e903";
+}
+
+.i-arrow::before {
+  content: "\e904";
+}
+
+.i-sort::before {
+  content: "\e905";
+}
+
+.i-calendar::before {
+  content: "\e906";
+}
+
+.i-close::before {
+  content: "\e907";
+}
+
+.i-more::before {
+  content: "\e908";
 }

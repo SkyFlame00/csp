@@ -1,6 +1,96 @@
+.cmp_users {
+  width: 800px;
+  margin: 0 auto; }
+  .cmp_users .tabs-header {
+    margin-bottom: -1px; }
+  .cmp_users .tabs-header-item {
+    padding: 15px;
+    border: none;
+    background-color: whitesmoke;
+    outline: 0;
+    border: 1px solid gainsboro;
+    cursor: pointer;
+    font-size: 1em; }
+    .cmp_users .tabs-header-item.active {
+      background: white;
+      border-bottom-color: white; }
+    .cmp_users .tabs-header-item:not(:first-child) {
+      border-left: none; }
+  .cmp_users .tabs-content {
+    background: white;
+    border: 1px solid gainsboro; }
+  .cmp_users .tabs-content-item {
+    padding: 20px 15px; }
+    .cmp_users .tabs-content-item:not(.active) {
+      display: none; }
+  .cmp_users .user-item {
+    padding: 20px 0;
+    border-bottom: 1px solid gainsboro; }
+    .cmp_users .user-item a {
+      cursor: pointer; }
+      .cmp_users .user-item a:hover {
+        text-decoration: underline; }
+  .cmp_users .user-item:first-child {
+    padding-top: 0; }
+  .cmp_users .user-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0; }
+  .cmp_users .empty {
+    text-align: center; }
+
+.cmp_dashboard {
+  display: flex;
+  width: 100%;
+  height: 100%; }
+  .cmp_dashboard .sidebar {
+    width: 280px;
+    background-color: #3c4461;
+    color: #b4bad4;
+    border-right: 1px solid black; }
+    .cmp_dashboard .sidebar .logo-block {
+      width: 100%;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      border-bottom: 1px solid #323a5f; }
+      .cmp_dashboard .sidebar .logo-block .logo {
+        font-size: 1.5em;
+        font-weight: bold; }
+    .cmp_dashboard .sidebar .menu {
+      margin-top: 20px; }
+      .cmp_dashboard .sidebar .menu ul li a {
+        display: block;
+        padding: 10px 16px; }
+        .cmp_dashboard .sidebar .menu ul li a i {
+          display: inline-block;
+          width: 20px;
+          font-size: .8em;
+          text-align: center; }
+        .cmp_dashboard .sidebar .menu ul li a span {
+          margin-left: 10px; }
+  .cmp_dashboard .main {
+    width: calc(100% - 200px);
+    height: 100%; }
+  .cmp_dashboard .dboard-header {
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #d2d2d2; }
+  .cmp_dashboard .content {
+    width: 100%;
+    height: calc(100% - 60px - 1px);
+    padding: 20px;
+    background-color: #fbfbfb;
+    box-sizing: border-box;
+    overflow-y: auto; }
+
 @font-face {
   font-family: 'Open Sans';
   src: url("fonts/open-sans.ttf"); }
+
+@font-face {
+  font-family: 'icons';
+  src: url("fonts/icons/icomoon.eot?27w32g");
+  src: url("fonts/icons/icomoon.eot?27w32g#iefix") format("embedded-opentype"), url("fonts/icons/icomoon.ttf?27w32g") format("truetype"), url("fonts/icons/icomoon.woff?27w32g") format("woff"), url("fonts/icons/icomoon.svg?27w32g#icomoon") format("svg"); }
 
 .clearfix::after {
   display: block;
@@ -22,6 +112,295 @@ html, body, #app {
 #app {
   overflow: hidden; }
 
+/* Icons */
+.i {
+  font-family: 'icons';
+  font-style: normal; }
+
+.i-chat::before {
+  content: "\e900"; }
+
+.i-survey::before {
+  content: "\e901"; }
+
+.i-project::before {
+  content: "\e902"; }
+
+.i-users::before {
+  content: "\e903"; }
+
+.i-arrow::before {
+  content: "\e904"; }
+
+.i-sort::before {
+  content: "\e905"; }
+
+.i-calendar::before {
+  content: "\e906"; }
+
+.i-close::before {
+  content: "\e907"; }
+
+.i-more::before {
+  content: "\e908"; }
+
+
+.modals {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute; }
+  .modals.no-display {
+    display: none; }
+  .modals .modals-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .5;
+    z-index: 1; }
+
+.modal-standard {
+  background-color: white;
+  border-radius: 12px;
+  z-index: 2;
+  box-shadow: 0 0 12px 6px #6d6d6d; }
+  .modal-standard.no-display {
+    display: none; }
+  .modal-standard .header,
+  .modal-standard .title,
+  .modal-standard .close button {
+    display: flex;
+    align-items: center; }
+  .modal-standard .header {
+    border-bottom: 1px solid gainsboro; }
+  .modal-standard .title {
+    width: 100%;
+    padding: 0 15px;
+    font-size: 1.1em; }
+  .modal-standard .close {
+    justify-content: center; }
+    .modal-standard .close button {
+      display: block;
+      padding: 16px 18px;
+      font-size: 1.2em;
+      border: none;
+      outline: 0;
+      cursor: pointer;
+      background: none;
+      display: flex;
+      color: #5a5a5a; }
+  .modal-standard .body {
+    min-height: 50px; }
+  .modal-standard .footer {
+    text-align: right;
+    padding: 12px;
+    border-top: 1px solid gainsboro; }
+    .modal-standard .footer button {
+      padding: 6px 14px;
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer; }
+
+.ce-form {
+  padding: 15px; }
+  .ce-form .field {
+    margin: 14px 0; }
+  .ce-form .field:first-child {
+    margin-top: 0; }
+  .ce-form .field:last-child {
+    margin-bottom: 0; }
+  .ce-form .field-oneline .field-label {
+    width: 110px;
+    float: left; }
+  .ce-form .field-oneline .field-input {
+    width: calc(100% - 110px);
+    float: left; }
+  .ce-form .field:not(.field-oneline) .field-label {
+    margin-bottom: 5px; }
+  .ce-form select {
+    width: 100%;
+    background: none; }
+  .ce-form input[type="text"],
+  .ce-form textarea,
+  .ce-form select {
+    border: 1px solid #eaeaea;
+    outline: 0;
+    border-radius: 8px;
+    padding: 6px 12px;
+    box-sizing: border-box; }
+  .ce-form .field-title input,
+  .ce-form .field-type input,
+  .ce-form .field-link input,
+  .ce-form .field-project input {
+    width: 100%; }
+  .ce-form .btn-no-style {
+    background: none;
+    border: none;
+    outline: none;
+    display: inline-block; }
+  .ce-form .field-desc textarea {
+    display: block;
+    padding: 12px;
+    width: 100%;
+    resize: vertical; }
+  .ce-form .field-date input {
+    width: 120px; }
+  .ce-form .field-date button {
+    margin-left: -28px;
+    font-size: 11px; }
+  .ce-form .field-time input {
+    width: 90px; }
+  .ce-form .field-participants button,
+  .ce-form .field-docs button {
+    margin-left: 5px; }
+  .ce-form .field-type button,
+  .ce-form .field-project button {
+    margin-left: -26px;
+    font-size: 11px; }
+  .ce-form .btn-primary-outlined {
+    padding: 2px 6px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 1px solid #1466cc;
+    font-size: .8em; }
+
+.cmp_ind-scheduler {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%; }
+  .cmp_ind-scheduler .scheduler-container {
+    margin: 0 auto; }
+  .cmp_ind-scheduler .scheduler {
+    display: flex;
+    width: 1000px; }
+  .cmp_ind-scheduler .left {
+    width: 150px;
+    height: calc(100% - 40px);
+    background-color: white;
+    margin-top: 40px;
+    border-radius: 12px 0 0 12px;
+    border: 1px solid #e2e2e2;
+    border-right: none; }
+  .cmp_ind-scheduler .right {
+    width: calc(100% - 150px);
+    background-color: white;
+    border-radius: 12px 12px 12px 0;
+    height: 100%;
+    position: relative;
+    border: 1px solid #e2e2e2; }
+  .cmp_ind-scheduler .timeline-h {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    border-bottom: 1px solid #e2e2e2;
+    border-radius: 12px 12px 0 0;
+    box-sizing: border-box; }
+  .cmp_ind-scheduler .hour {
+    font-size: 12px;
+    top: calc(40px/2 - 12px/2);
+    position: absolute;
+    color: gray; }
+  .cmp_ind-scheduler .strips {
+    width: 100%; }
+  .cmp_ind-scheduler .strip {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: #f1f1f1;
+    top: 0; }
+  .cmp_ind-scheduler .date-move button {
+    display: block;
+    width: 100%;
+    height: 15px;
+    text-align: center;
+    border: none;
+    background-color: whitesmoke;
+    cursor: pointer;
+    box-sizing: border-box;
+    outline: none; }
+    .cmp_ind-scheduler .date-move button i {
+      display: block;
+      font-size: 12px;
+      color: gray; }
+  .cmp_ind-scheduler .date-up-wrapper button {
+    border-radius: 12px 0 0 0;
+    border-bottom: 1px solid #e2e2e2; }
+    .cmp_ind-scheduler .date-up-wrapper button i {
+      transform: rotate(180deg); }
+  .cmp_ind-scheduler .date-down-wrapper button {
+    border-radius: 0 0 0 12px;
+    border-top: 1px solid #e2e2e2; }
+    .cmp_ind-scheduler .date-down-wrapper button i {
+      transform: rotate(0deg); }
+  .cmp_ind-scheduler .date {
+    margin-top: 25px;
+    line-height: 25px;
+    text-align: center; }
+  .cmp_ind-scheduler .date:first-child {
+    margin-top: 25px; }
+  .cmp_ind-scheduler .date:last-child {
+    margin-bottom: 25px; }
+  .cmp_ind-scheduler .timeline {
+    margin-top: 25px;
+    background-color: whitesmoke;
+    width: 100%;
+    height: 25px; }
+  .cmp_ind-scheduler .timeline:first-child {
+    margin-top: calc(25px + 15px); }
+  .cmp_ind-scheduler .timeline:last-child {
+    margin-bottom: calc(25px + 15px); }
+
+.cmp_scheduler {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: white;
+  display: none; }
+  .cmp_scheduler.display-yes {
+    display: flex; }
+  .cmp_scheduler .sidebar {
+    width: 250px;
+    height: 100%;
+    border-right: 1px solid #e2e2e2;
+    box-sizing: border-box; }
+    .cmp_scheduler .sidebar .back-wrapper {
+      display: flex;
+      border-bottom: 1px solid #e2e2e2;
+      cursor: pointer; }
+    .cmp_scheduler .sidebar .back-icon {
+      width: 40px;
+      height: 40px;
+      text-align: center; }
+      .cmp_scheduler .sidebar .back-icon i {
+        display: block;
+        font-size: 1.3em;
+        line-height: 40px;
+        color: #0079ff; }
+    .cmp_scheduler .sidebar .back-label {
+      width: calc(100% - 30px);
+      padding-left: 10px;
+      line-height: 40px;
+      border-left: 1px solid #e2e2e2;
+      box-sizing: border-box; }
+  .cmp_scheduler .content {
+    width: calc(100% - 250px);
+    height: 100%; }
 
 /*
 ** @Header
@@ -270,6 +649,80 @@ html, body, #app {
 .signup-block .tabs-flow-content {
   padding: 15px; }
 
+.block-shadowed {
+  border-radius: 8px;
+  box-shadow: 0 0 12px 0 #e6e6e6; }
+
+.cmp_user-page {
+  width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  /* Button "More" */ }
+  .cmp_user-page .header,
+  .cmp_user-page .body {
+    padding: 15px; }
+  .cmp_user-page .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gainsboro; }
+    .cmp_user-page .header h1 {
+      font-size: 1.2em;
+      font-weight: normal; }
+    .cmp_user-page .header .additional {
+      display: flex;
+      font-size: .9em;
+      align-items: center; }
+    .cmp_user-page .header button {
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: none;
+      outline: 0;
+      cursor: pointer; }
+  .cmp_user-page .item {
+    margin: 20px 0; }
+    .cmp_user-page .item:first-child {
+      margin-top: 0; }
+    .cmp_user-page .item:last-child {
+      margin-bottom: 0; }
+  .cmp_user-page .no-display {
+    display: none; }
+  .cmp_user-page .more {
+    position: relative; }
+    .cmp_user-page .more .btn-more {
+      display: flex;
+      padding: 6px 0 6px 10px;
+      opacity: .6;
+      font-size: 1em;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      cursor: pointer; }
+      .cmp_user-page .more .btn-more:hover {
+        opacity: 1; }
+  .cmp_user-page .more-list {
+    position: absolute;
+    width: 200px;
+    top: 100%;
+    right: -8px;
+    padding: 10px 0;
+    background-color: white; }
+    .cmp_user-page .more-list ul li {
+      list-style-type: none; }
+    .cmp_user-page .more-list button {
+      display: block;
+      width: 100%;
+      padding: 8px 10px;
+      text-align: left;
+      border-radius: unset;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      font-size: 1em;
+      cursor: pointer; }
+      .cmp_user-page .more-list button:hover {
+        background-color: whitesmoke; }
+
 .rg-btn {
   width: 100%;
   height: 100%;
@@ -279,3 +732,17 @@ html, body, #app {
   .rg-btn span {
     position: relative;
     pointer-events: none; }
+
+.btn-primary {
+  background-color: #1466cc;
+  color: white; }
+
+.btn-primary-outlined {
+  color: #1466cc;
+  border: 1px solid #1466cc;
+  background-color: transparent; }
+
+.btn-secondary {
+  background-color: #eaeaea; }
+
+

@@ -1,0 +1,95 @@
+@import '../../main/ui-elements/scss/buttons/variables';
+$border-color: gainsboro;
+
+.modals {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  &.no-display {
+    display: none;
+  }
+
+  .modals-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .5;
+    z-index: 1;
+  }
+}
+
+.modal {
+
+}
+
+.modal-standard {
+  background-color: white;
+  border-radius: 12px;
+  z-index: 2;
+  box-shadow: 0 0 12px 6px #6d6d6d;
+
+  &.no-display {
+    display: none;
+  }
+
+  .header,
+  .title,
+  .close button {
+    display: flex;
+    align-items: center;
+  }
+
+  .header {
+    border-bottom: 1px solid $border-color;
+  }
+
+  .title {
+    width: 100%;
+    padding: 0 15px;
+    font-size: 1.1em;
+  }
+
+  .close {
+    justify-content: center;
+
+    button {
+      display: block;
+      padding: 16px 18px;
+      font-size: 1.2em;
+      border: none;
+      outline: 0;
+      cursor: pointer;
+      background: none;
+      display: flex;
+      color: #5a5a5a;
+    }
+  }
+
+  .body {
+    min-height: 50px;
+  }
+
+  .footer {
+    text-align: right;
+    padding: 12px;
+    border-top: 1px solid $border-color;
+
+    button {
+      padding: 6px 14px;
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+}

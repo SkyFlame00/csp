@@ -1,0 +1,136 @@
+$timelineHeader-height: 40px;
+$hour-fontSize: 12px;
+$border-color: #e2e2e2;
+$date-move-btn-height: 15px;
+$tl-marginTop: 25px;
+$tl-height: 25px;
+$tl-edge-margin: 15px;
+
+.cmp_ind-scheduler {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .scheduler-container {
+    margin: 0 auto;
+  }
+
+  .scheduler {
+    display: flex;
+    width: 1000px;
+  }
+  
+  .left {
+    width: 150px;
+    height: calc(100% - #{$timelineHeader-height});
+    background-color: white;
+    margin-top: $timelineHeader-height;
+    border-radius: 12px 0 0 12px;
+    border: 1px solid $border-color;
+    border-right: none;
+  }
+  
+  .right {
+    width: calc(100% - 150px);
+    background-color: white;
+    border-radius: 12px 12px 12px 0;
+    height: 100%;
+    position: relative;
+    border: 1px solid $border-color;
+  }
+  
+  .timeline-h {
+    position: relative;
+    width: 100%;
+    height: $timelineHeader-height;
+    background-color: white;
+    border-bottom: 1px solid $border-color;
+    border-radius: 12px 12px 0 0;
+    box-sizing: border-box;
+  }
+  
+  .hour {
+    font-size: $hour-fontSize;
+    top: calc(#{$timelineHeader-height}/2 - #{$hour-fontSize}/2);
+    position: absolute;
+    color: gray;
+  }
+
+  .strips {
+    width: 100%;
+  }
+
+  .strip {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: #f1f1f1;
+    top: 0;
+  }
+
+  .date-move button {
+    display: block;
+    width: 100%;
+    height: $date-move-btn-height;
+    text-align: center;
+    border: none;
+    background-color: whitesmoke;
+    cursor: pointer;
+    box-sizing: border-box;
+    outline: none;
+
+    i {
+      display: block;
+      font-size: 12px;
+      color: gray;
+    }
+  }
+
+  .date-up-wrapper button {
+    border-radius: 12px 0 0 0;
+    border-bottom: 1px solid $border-color;
+
+    i {
+      transform: rotate(180deg);
+    }
+  }
+
+  .date-down-wrapper button {
+    border-radius: 0 0 0 12px;
+    border-top: 1px solid $border-color;
+
+    i {
+      transform: rotate(0deg);
+    }
+  }
+
+  .date {
+    margin-top: $tl-marginTop;
+    line-height: $tl-height;
+    text-align: center;
+  }
+
+  .date:first-child {
+    margin-top: $tl-marginTop;
+  }
+
+  .date:last-child {
+    margin-bottom: $tl-marginTop;
+  }
+
+  .timeline {
+    margin-top: $tl-marginTop;
+    background-color: whitesmoke;
+    width: 100%;
+    height: $tl-height;
+  }
+
+  .timeline:first-child {
+    margin-top: calc(#{$tl-marginTop} + #{$date-move-btn-height});
+  }
+
+  .timeline:last-child {
+    margin-bottom: calc(#{$tl-marginTop} + #{$date-move-btn-height});
+  }
+}

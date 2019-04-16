@@ -4,7 +4,7 @@ const Router = function() {
 
 Router.prototype.regexpParams = /(\(:([\w\d\-_]+)\))/gi;
 
-Router.prototype.trimRoute = function(route){
+Router.prototype.trimRoute = function(route) {
   route = route[0] === '/'
     ? route.substr(1)
     : route;
@@ -99,6 +99,7 @@ Router.prototype.getRoute = function(link, routes = this.routes) {
     }
 
     if (regexp.lastIndex > 0 && newLink.length > 0) {
+      regexp.lastIndex = 0;
       if (route.children && route.children.length > 0) {
         let childrenCheck = this.getRoute(newLink, route.children);
         if (childrenCheck !== null) {
@@ -109,8 +110,9 @@ Router.prototype.getRoute = function(link, routes = this.routes) {
       }
     }
     
+    // In case it's terminal route
     else if (regexp.lastIndex > 0) {
-      // In case it's terminal route
+      regexp.lastIndex = 0;
       if (route.handler) {
         return {
           handler: route.handler,
@@ -123,6 +125,7 @@ Router.prototype.getRoute = function(link, routes = this.routes) {
       // get into recursion) '/', so we look up children to
       // to match the root '/' which must exist there
       if (route.children) {
+        regexp.lastIndex = 0;
         let childrenCheck = this.getRoute(newLink, route.children);
         if (childrenCheck !== null) {
           childrenCheck.middlewares = middlewares.concat(childrenCheck.middlewares);
@@ -157,10 +160,10 @@ Router.prototype.navigate = function(link, handlerParams) {
   link = this.trimRoute(link);
   let route = this.getRoute(link);
   if (!route) {
-    console.log('No suitable route has been found');
+    console.error('No suitable route has been found!');
     return;
   }
-  // route.handler(route.params);
+  
   fns = route.middlewares.concat([route.handler.bind(null, handlerParams)]);
   for (let i = fns.length - 1; i > 0, fn = fns[i]; i--) {
     if (i !== fns.length - 1) {
@@ -191,7 +194,7 @@ Router.prototype.testNav = function(link, handlerParams) {
       fns[i] = fn.bind(null, route.params);
     }
   }
-  console.log(fns)
+  // console.log(fns)
   fns[0]();
 };
 

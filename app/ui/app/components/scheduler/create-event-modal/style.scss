@@ -1,0 +1,136 @@
+@import '../../main/ui-elements/scss/buttons/variables';
+$label-width: 110px;
+$input-width: 100%;
+
+.ce-form {
+  padding: 15px;
+
+  .field {margin: 14px 0;}
+  .field:first-child {margin-top: 0;}
+  .field:last-child {margin-bottom: 0;}
+
+  .field-oneline {
+    .field-label {
+      width: $label-width;
+      float: left;
+    }
+
+    .field-input {
+      width: calc(100% - #{$label-width});
+      float: left;
+    }
+  }
+
+  .field:not(.field-oneline) .field-label {
+    margin-bottom: 5px;
+  }
+
+  select {
+    width: $input-width;
+    background: none;
+  }
+
+  input[type="text"],
+  textarea,
+  select {
+    border: 1px solid #eaeaea;
+    outline: 0;
+    border-radius: 8px;
+    padding: 6px 12px;
+    box-sizing: border-box;
+  }
+
+  .field-title,
+  .field-type,
+  .field-link,
+  .field-project {
+    input {width: $input-width;}
+  }
+
+  .btn-no-style {
+    background: none;
+    border: none;
+    outline: none;
+    display: inline-block;
+  }
+
+  .field-title {
+
+  }
+
+  .field-desc {
+    textarea {
+      display: block;
+      padding: 12px;
+      width: $input-width;
+      resize: vertical;
+    }
+  }
+
+  .field-date {
+    input {
+      width: 120px;
+    }
+
+    button {
+      margin-left: -28px;
+      font-size: 11px;
+    }
+  }
+
+  .field-time {
+    input {
+      width: 90px;
+    }
+  }
+
+  .field-participants,
+  .field-docs {
+    button {
+      margin-left: 5px;
+    }
+  }
+
+  .field-participants {
+
+  }
+
+  .field-link {
+
+  }
+
+  .field-type,
+  .field-project {
+    button {
+      margin-left: -26px;
+      font-size: 11px;
+    }
+  }
+
+  .field-type {
+
+  }
+
+  .field-project {
+
+  }
+
+  .field-importance {
+
+  }
+
+  .field-docs {
+
+  }
+
+  .btn-primary-outlined {
+    padding: 2px 6px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 1px solid $primary;
+    font-size: .8em;
+  }
+}

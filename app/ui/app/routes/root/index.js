@@ -3,25 +3,21 @@ const {render} = require('csp-app/components/main');
 const Start = require('csp-app/components/start');
 const Dashboard = require('csp-app/components/dashboard');
 
-const rootHandler = function() {
-  let user = null;
-  let token = window.localStorage.getItem('auth_token') || null;
+const checkAuth = function(token) {
+  return http
+    .post('auth/authenticate', {token: token})
+  ;
+};
 
-  if (token) {
-    http
-      .post('auth/authenticate', {token: token})
-      .then(res => {
-        if (res.success) {
-          user = res.data.user;
-        }
-      });
-  }
+const rootHandler = async function() {
+  const token = window.localStorage.getItem('auth_token') || null;
+  const isAuthenticated = token ? (await checkAuth(token)).success : false;
 
-  if (user) {
-    render([new Start()]);
+  if (isAuthenticated) {
+    render([Dashboard]);
   }
   else {
-    render([new Dashboard()]);
+    render([Start]);
   }
 };
 

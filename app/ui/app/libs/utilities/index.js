@@ -24,7 +24,21 @@ function Singleton(fn) {
   return Class;
 }
 
+function range(start, end) {
+  let arr = [];
+  for (let i = start; i <= end; i++) arr.push(i);
+  return arr;
+}
+
+function sortNumbers(a, b) {
+  if (a > b) return 1;
+  if (a < b) return -1;
+  return 0;
+}
+
 module.exports = {
   createElementFromHTML,
-  Singleton
+  Singleton,
+  range,
+  sortNumbers
 };

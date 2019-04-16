@@ -11,18 +11,30 @@ const execFormBlock = createElementFromHTML(/*html*/`
   <div class="exec-form form"></div>
 `);
 
+const academicFormBlock = createElementFromHTML(/*html*/`
+  <div class="form">Academic</div>
+`);
+
+const studentFormBlock = createElementFromHTML(/*html*/`
+  <div class="form">Student</div>
+`);
+
 const signupTabs = new Tabs({
   header: {
     className: 'actions clearfix',
     items: [
       {title: 'Sign up as client', tag: 'button'},
-      {title: 'Sign up as executor', tag: 'button'}
+      {title: 'Sign up as executor', tag: 'button'},
+      {title: 'As academic', tag: 'button'},
+      {title: 'As student', tag: 'button'}
     ]
   },
   content: {
     items: [
       clientFormBlock,
       execFormBlock,
+      academicFormBlock,
+      studentFormBlock
     ]
   },
   animation: {

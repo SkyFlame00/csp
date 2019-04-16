@@ -1,0 +1,90 @@
+.cmp_user-page {
+  width: 900px;
+  margin: 0 auto;
+  background-color: white;
+
+  .header,
+  .body {
+    padding: 15px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gainsboro;
+
+    h1 {
+      font-size: 1.2em;
+      font-weight: normal;
+    }
+    
+    .additional {
+      display: flex;
+      font-size: .9em;
+      align-items: center;
+    }
+
+    button {
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: none;
+      outline: 0;
+      cursor: pointer;
+    }
+  }
+
+  .item {
+    margin: 20px 0;
+    &:first-child {margin-top: 0;}
+    &:last-child {margin-bottom: 0;}
+  }
+
+  .no-display {
+    display: none;
+  }
+
+  /* Button "More" */
+  .more {
+    position: relative;
+
+    .btn-more {
+      display: flex;
+      padding: 6px 0 6px 10px;
+      opacity: .6;
+      font-size: 1em;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+      &:hover {opacity: 1;}
+    }
+  }
+
+  .more-list {
+    position: absolute;
+    width: 200px;
+    top: 100%;
+    right: -8px;
+    padding: 10px 0;
+    background-color: white;
+
+    ul li {
+      list-style-type: none;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 8px 10px;
+      text-align: left;
+      border-radius: unset;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      font-size: 1em;
+      cursor: pointer;
+      &:hover {background-color: whitesmoke;}
+    }
+  }
+}

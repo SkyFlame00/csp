@@ -22,7 +22,7 @@ const defaultAnim = function() {
   }
 
   function initialize(tab) {
-    tab--;
+    tab;
     const activeHeaderItem = this.header.items[tab];
     const activeContentItem = this.content.items[tab];
     const nonActiveContentItems = this.content.items.filter(item => item !== activeContentItem);

@@ -9,7 +9,10 @@ const Start = function() {
   tabsWrapper.appendChild(tabs.content.element);
 
   return {
-    element: element
+    success: true,
+    controller: {
+      element: element
+    }    
   };
 };
 

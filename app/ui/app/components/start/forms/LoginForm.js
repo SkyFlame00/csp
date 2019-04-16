@@ -65,7 +65,7 @@ const loginForm = new Form({
             throw new Error(res.error.message);
 
           window.localStorage.setItem('auth_token', res.data.token);
-          MainController.render([new Dashboard()]);
+          MainController.render([Dashboard]);
         })
         .catch((err) => {
           console.log(err.message);

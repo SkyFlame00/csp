@@ -1,0 +1,16 @@
+@import './variables';
+
+.btn-primary {
+  background-color: $primary;
+  color: white;
+}
+
+.btn-primary-outlined {
+  color: $primary;
+  border: 1px solid $primary;
+  background-color: transparent;
+}
+
+.btn-secondary {
+  background-color: $secondary;
+}

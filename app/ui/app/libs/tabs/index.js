@@ -58,7 +58,12 @@ const Tabs = function(opts) {
     }
   });
 
-  anim.initialize.call(tabs, opts.animation.initializer - 1 || 0, opts.animation.params);
+  const initializer =
+    opts.animation.initializer ?
+    opts.animation.initializer - 1 :
+    0;
+  
+  anim.initialize.call(tabs, initializer, opts.animation.params);
 
   return tabs;
 };

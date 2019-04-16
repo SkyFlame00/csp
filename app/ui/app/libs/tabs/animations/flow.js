@@ -118,6 +118,7 @@ const TabsFlowAnimation = function() {
     // Add on resizing event handler
     const newOrder = +this.active.headerItem.dataset.order - 1;
     window.addEventListener('resize', () => {
+      const newOrder = +controller.active.headerItem.dataset.order - 1;
       const options = {controller: this, newOrder: newOrder};
       if (this.active.working) {
         setContentItemsWidths(options, params);

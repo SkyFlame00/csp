@@ -1,5 +1,8 @@
+const Router = require('csp-app/libs/router')
+
 const app = self = {
   root: null,
+  router: new Router(),
   path: [],
   renderChain: function(components) {
     // Promise is returned
@@ -19,7 +22,7 @@ const app = self = {
         })
       ;
     }, self.root)
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
   },
   initialize: function(rootInstance) {
     self.root = rootInstance;
