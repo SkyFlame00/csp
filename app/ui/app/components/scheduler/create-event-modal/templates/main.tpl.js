@@ -33,6 +33,7 @@ function template() {
       <div class="field field-participants">
         <div class="field-label">Participants <button class="btn-primary-outlined"><i class="i i-plus"></i>Add participant</button></div>
         <div class="field-input"></div>
+        <div class="field-alert"></div>
       </div>
 
       <div class="field field-oneline field-link clearfix">
@@ -89,6 +90,7 @@ function template() {
   const to = element.querySelector('.field-time .to');
   const addParticipantBtn = element.querySelector('.field-participants button');
   const addParticipantPlace = element.querySelector('.field-participants .field-input');
+  const addParticipantAlert = element.querySelector('.field-participants .field-alert');
   const link = element.querySelector('.field-link input');
   const typeInput = element.querySelector('.field-type input');
   const typeBtn = element.querySelector('.field-type button');
@@ -111,7 +113,8 @@ function template() {
     },
     participants: {
       btn: addParticipantBtn,
-      place: addParticipantPlace
+      place: addParticipantPlace,
+      alert: addParticipantAlert
     },
     link,
     type: {

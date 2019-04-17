@@ -1,0 +1,48 @@
+$border-color: whitesmoke;
+$green: green;
+
+.cmp_sel-ps {
+  .participant {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {border-bottom: none;}
+
+    .select-box {
+      display: flex;
+      border-radius: 50%;
+      border: 1px solid $border-color;
+      width: 30px;
+      height: 30px;
+      
+      i {
+        display: none;
+        color: white;
+      }
+    }
+
+    .busy {
+      color: yellow;
+      font-size: .8em;
+    }
+
+    .user-info {
+      margin-left: 10px;
+    }
+  }
+
+  .participant.selected {
+    .select-box {
+      background-color: $green;
+      border-color: $green;
+
+      i {
+        display: block;
+      }
+    }
+  }
+}

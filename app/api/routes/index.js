@@ -7,7 +7,7 @@ function mountRoutes(app, db) {
   app.use(extractPayload);
   app.use('/auth', authRouter);
   app.use('/users', usersRouter);
-  app.use('scheduler', require('./scheduler'));
+  app.use('/scheduler', require('./scheduler'));
   // users(app, db);
 }
 

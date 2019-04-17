@@ -1,6 +1,6 @@
 const {db} = require('csp-app-api/main');
 
-function getAllFriendsBasedOnAvailability(req, res) {
+function getParticipantsAvailability(req, res) {
   const cases = {
     isNull: `
       case
@@ -69,4 +69,4 @@ function getAllFriendsBasedOnAvailability(req, res) {
   ;
 }
 
-module.exports = getAllFriendsBasedOnAvailability;
+module.exports = getParticipantsAvailability;
