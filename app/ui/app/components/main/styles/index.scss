@@ -87,3 +87,23 @@ html, body, #app {
 .i-clock::before {
   content: "\e90a";
 }
+
+.i-hand-paper::before {
+  content: "\e90b";
+}
+
+.i-hand-rock::before {
+  content: "\e90d";
+}
+
+.i-hand-peace::before {
+  content: "\e90c";
+}
+
+.i-info::before {
+  content: "\e90e";
+}
+
+.i-link::before {
+  content: "\e90f";
+}

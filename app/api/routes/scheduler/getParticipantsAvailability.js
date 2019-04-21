@@ -18,22 +18,16 @@ function getParticipantsAvailability(req, res) {
     `
   };
 
-  const fields = 'users.username, users.first_name, users.last_name';
+  const participantsIdsStr = req.body.participantsIds.map(p=>p['user_id']).join(', ');
+  console.log('str', participantsIdsStr)
 
   const sql = `
-    SELECT t.user_id, ${ fields }, ${ cases.gt0 } AS busy FROM (
+    SELECT t.user_id, ${ cases.gt0 } AS busy FROM (
       SELECT user_id, sum(t.counter) AS sum FROM (
         SELECT id AS user_id, ${ cases.isNull } AS counter FROM (
           (
-            SELECT users.id FROM (
-              (SELECT user_2 AS id FROM friends WHERE user_1=$1)
-              UNION ALL
-              (SELECT user_1 AS id FROM friends WHERE user_2=$1)
-            ) AS friends_ids
-            INNER JOIN
-            users
-            ON friends_ids.id=users.id
-          ) AS friends
+            SELECT id FROM users WHERE id IN (${ participantsIdsStr })
+          ) AS participants
           LEFT JOIN
           (
             SELECT
@@ -42,27 +36,26 @@ function getParticipantsAvailability(req, res) {
             FROM
               (events INNER JOIN events_participants ON events.id=events_participants.event_id)
             WHERE
-              events.date=$2
+              events.date=$1
             AND (
+              $2 BETWEEN events.time_from AND events.time_to
+              OR
               $3 BETWEEN events.time_from AND events.time_to
               OR
-              $4 BETWEEN events.time_from AND events.time_to
+              events.time_from BETWEEN $2 AND $3
               OR
-              events.time_from BETWEEN $3 AND $4
-              OR
-              events.time_to BETWEEN $3 AND $4
+              events.time_to BETWEEN $2 AND $3
             )
           ) AS found_users
-          ON friends.id=found_users.user_id
+          ON participants.id=found_users.user_id
         ) AS t
       ) AS t GROUP BY user_id
     ) AS t
     INNER JOIN users ON t.user_id=users.id
   `;
 
-  db.query(sql, [req.user.id, req.body.date, req.body.timeFrom, req.body.timeTo])
+  db.query(sql, [req.body.date, req.body.timeFrom, req.body.timeTo])
     .then(result => {
-      console.log(req.body)
       console.log(result.rows)
       res.json( result.rows );
     })

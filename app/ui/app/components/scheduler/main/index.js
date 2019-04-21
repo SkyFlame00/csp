@@ -7,7 +7,10 @@ const SchedulerComponent = function() {
 
   tplController.btnOpenIndSch.addEventListener('click', () => {
     if (!ISModalInstance) {
-      ISModalInstance = ISModal.create();
+      ISModalInstance = ISModal.create({ destroyOnClose: true });
+      ISModalInstance.root.addEventListener('close', () => {
+        ISModalInstance = null;
+      });
     }
     
     ISModalInstance.open();

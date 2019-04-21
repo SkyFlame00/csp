@@ -45,9 +45,11 @@ function Modal(options) {
     actionsObj[action.id] = action.element;
   });
 
-  actionsObj['cancel'].addEventListener('click', () => {
-    this.close();
-  });
+  if (actionsObj['cancel']) {
+    actionsObj['cancel'].addEventListener('click', () => {
+      this.close();
+    });
+  }
 
   this.elements = {
     ...tplController,

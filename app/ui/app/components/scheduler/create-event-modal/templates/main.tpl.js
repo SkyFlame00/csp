@@ -33,7 +33,9 @@ function template() {
       <div class="field field-participants">
         <div class="field-label">Participants <button class="btn-primary-outlined"><i class="i i-plus"></i>Add participant</button></div>
         <div class="field-input"></div>
-        <div class="field-alert"></div>
+        <div class="field-alert no-display">
+          These cannot participate: <span class="participants-list"></span>
+        </div>
       </div>
 
       <div class="field field-oneline field-link clearfix">
@@ -90,12 +92,9 @@ function template() {
   const to = element.querySelector('.field-time .to');
   const addParticipantBtn = element.querySelector('.field-participants button');
   const addParticipantPlace = element.querySelector('.field-participants .field-input');
-  const addParticipantAlert = element.querySelector('.field-participants .field-alert');
   const link = element.querySelector('.field-link input');
-  const typeInput = element.querySelector('.field-type input');
-  const typeBtn = element.querySelector('.field-type button');
-  const projectInput = element.querySelector('.field-project input');
-  const projectBtn = element.querySelector('.field-project button');
+  const typeSelect = element.querySelector('.field-type select');
+  const projectSelect = element.querySelector('.field-project select');
   const impRadioNone = element.querySelector('#imp-none');
   const impRadioImportant = element.querySelector('#imp-important');
   const impRadioDesirable = element.querySelector('#imp-desirable');
@@ -114,17 +113,14 @@ function template() {
     participants: {
       btn: addParticipantBtn,
       place: addParticipantPlace,
-      alert: addParticipantAlert
+      alert: {
+        root: element.querySelector('.field-participants .field-alert'),
+        place: element.querySelector('.field-participants .participants-list')
+      }
     },
     link,
-    type: {
-      input: typeInput,
-      btn: typeBtn
-    },
-    project: {
-      input: projectInput,
-      btn: projectBtn
-    },
+    type: typeSelect,
+    project: projectSelect,
     importance: {
       none: impRadioNone,
       important: impRadioImportant,

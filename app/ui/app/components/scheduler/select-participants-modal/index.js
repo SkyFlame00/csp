@@ -15,11 +15,12 @@ function listTemplate() {
 
 function participantTemplate(participant) {
   const selected = participant.selected ? 'selected' : '';
+  const username = participant.you ? 'You' : participant['username'];
   const html = /*html*/`
     <div class="participant ${ selected }" data-id="${ participant['user_id'] }">
       <div class="select-box"><i class="i i-check"></i></div>
       <div class="user-info">
-        <div class="user-name">${ participant['username'] }</div>
+        <div class="user-name">${ username }</div>
         ${
           participant['busy'] ?
           /*html*/`<div class="busy"><i class="i i-clock"></i> Busy</div>`
@@ -61,6 +62,12 @@ function SPModal(options) {
 
   http.post('scheduler/getAllFriendsBasedOnAvailability', params)
     .then(friends => {
+      friends = friends.sort((a, b) => {
+        if (a.you == false) return 1;
+        if (b.you == false) return -1;
+        return 0;
+      });
+
       friends.forEach(friend => {
         const selected = participantsSelected.findIndex(p => p['user_id'] === friend['user_id']);
         friend.selected = selected > -1;
@@ -84,8 +91,9 @@ function SPModal(options) {
 
       submit.addEventListener('click', () => {
         const data = participants.filter(p => p.selected);
-        const submitEvent = new CustomEvent('eventCreated', { detail: {participants: data} });
+        const submitEvent = new CustomEvent('participantsSelected', { detail: {participants: data} });
         SPModalInstance.elements.root.dispatchEvent(submitEvent);
+        SPModalInstance.close();
       });
 
       disableOnBusySelected();

@@ -15,15 +15,7 @@ const schedulerTpl = /*html*/`
             <button><i class="i i-sort"></i></button>
           </div>
 
-          <div class="dates">
-            <div class="date">April, 8</div>
-            <div class="date">April, 9</div>
-            <div class="date">April, 10</div>
-            <div class="date">April, 11</div>
-            <div class="date">April, 12</div>
-            <div class="date">April, 13</div>
-            <div class="date">April, 14</div>
-          </div>
+          <div class="dates"></div>
 
           <div class="date-move date-down-wrapper">
             <button><i class="i i-sort"></i></button>
@@ -33,15 +25,7 @@ const schedulerTpl = /*html*/`
         <div class="right">
           <div class="strips"></div>
           <div class="timeline-h"></div>
-          <div class="timeline-b">
-            <div class="timeline"></div>
-            <div class="timeline"></div>
-            <div class="timeline"></div>
-            <div class="timeline"></div>
-            <div class="timeline"></div>
-            <div class="timeline"></div>
-            <div class="timeline"></div>
-          </div>
+          <div class="timeline-b"></div>
         </div>
       </div>
     </div>
@@ -124,6 +108,7 @@ function template() {
       dateDown,
       dates,      
       timeline: timelineBody,
+      right: scheduler.querySelector('.right'),
       generateHoursMarks: generateHoursMarks(timelineHeader),
       generateStrips: generateStrips(strips)
     }
