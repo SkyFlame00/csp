@@ -19,7 +19,7 @@ function init() {
       token varchar(16) NOT NULL,
       created_at timestamp NOT NULL,
       PRIMARY KEY (id, user_id),
-      FOREIGN KEY (user_id) REFERENCES users(id)
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )`;
   
   const createFriends = 
@@ -28,8 +28,8 @@ function init() {
       user_1 integer NOT NULL,
       user_2 integer NOT NULL,
       CONSTRAINT friends_pair UNIQUE(user_1, user_2),
-      FOREIGN KEY (user_1) REFERENCES users(id),
-      FOREIGN KEY (user_2) REFERENCES users(id)
+      FOREIGN KEY (user_1) REFERENCES users(id) ON DELETE CASCADE,
+      FOREIGN KEY (user_2) REFERENCES users(id) ON DELETE CASCADE
     )`;
   
   const createFriendsRequests = 
@@ -37,8 +37,8 @@ function init() {
       id serial PRIMARY KEY,
       requester integer NOT NULL,
       requestee integer NOT NULL,
-      FOREIGN KEY (requester) REFERENCES users(id),
-      FOREIGN KEY (requestee) REFERENCES users(id)
+      FOREIGN KEY (requester) REFERENCES users(id) ON DELETE CASCADE,
+      FOREIGN KEY (requestee) REFERENCES users(id) ON DELETE CASCADE
     )`;
 
   const createEvents = 
@@ -50,16 +50,24 @@ function init() {
       time_from timestamp,
       time_to timestamp,
       link varchar(200),
-      type varchar(50),
+      category integer,
       project_id integer,
-      importance char(3)
+      importance char(3),
+      FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
     )`;
 
   const createEventsParticipants = 
     `CREATE TABLE events_participants(
       id serial PRIMARY KEY,
-      event_id integer REFERENCES events(id),
-      user_id integer REFERENCES users(id)
+      event_id integer REFERENCES events(id) ON DELETE CASCADE,
+      user_id integer REFERENCES users(id) ON DELETE CASCADE
+    )`;
+
+  const createCategories =
+    `CREATE TABLE categories(
+      id serial PRIMARY KEY,
+      name varchar(50),
+      color_rgb varchar(20)
     )`;
 
   client.query(createUsers)
@@ -68,6 +76,7 @@ function init() {
     .then(res => client.query(createFriendsRequests))
     .then(res => client.query(createEvents))
     .then(res => client.query(createEventsParticipants))
+    .then(() => client.query(createCategories))
     .then(res => console.log('Initialization has been completed'))
     .catch(err => console.log(err));
 }

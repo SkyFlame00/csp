@@ -20,7 +20,7 @@ function ECModal() {
   `;
   const element = createElementFromHTML(html);
 
-  ECModalInstance.elements.root.appendChild(element);
+  ECModalInstance.elements.body.appendChild(element);
 
   return ECModalInstance;
 }

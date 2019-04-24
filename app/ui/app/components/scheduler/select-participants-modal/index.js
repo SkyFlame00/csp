@@ -53,7 +53,11 @@ function SPModal(options) {
     destroyOnClose: true
   });
 
-  const params = { date, timeFrom, timeTo };
+  const params = {
+    date: date.toString(),
+    timeFrom: timeFrom.toString(),
+    timeTo: timeTo.toString()
+  };
   const tplController = listTemplate();
   const submit = SPModalInstance.elements.submit;
   let participants = [];

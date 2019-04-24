@@ -8,7 +8,9 @@ const sidebarTpl = /*html*/`
 const schedulerTpl = /*html*/`
   <div class="cmp_ind-scheduler">
     <div class="scheduler-container">
-      <button id="open-CEModal">Open modal</button>
+      <div class="open-CEModal-wrapper">
+        Click <button id="open-CEModal" class="btn-primary">here</button> to open create event window
+      </div>
       <div class="scheduler">
         <div class="left">
           <div class="date-move date-up-wrapper">

@@ -4,5 +4,7 @@ router.post('/getAllFriendsBasedOnAvailability', require('./getAllFriendsBasedOn
 router.post('/getParticipantsAvailability', require('./getParticipantsAvailability'));
 router.post('/create-event', require('./createEvent'));
 router.post('/getAllMyEventsByDays', require('./getAllMyEventsByDays'));
+router.get('/getMyLocalTime', require('./getMyLocalTime'));
+router.get('/getEventInfo/:eventId', require('./getEventInfo'));
 
 module.exports = router;

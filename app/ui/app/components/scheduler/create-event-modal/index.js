@@ -238,8 +238,15 @@ CEModal.prototype.bindOKButton = function() {
           return;
         };
   
-        const eventCreated = new CustomEvent('eventCreated', { detail: this.data });
-        this.modal.elements.root.dispatchEvent(eventCreated);
+        const userParticipates = this.data.participants.some(p => p.you);
+
+        if (userParticipates) {
+          this.data.id = +answer.data.eventId;
+          this.data['participants_num'] = this.data.participants.length;
+          const eventCreated = new CustomEvent('eventCreated', { detail: this.data });
+          this.modal.elements.root.dispatchEvent(eventCreated);
+        }
+
         this.modal.close();
         ECModal.create().open();
       })

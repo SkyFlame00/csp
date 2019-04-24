@@ -5,6 +5,7 @@ $date-move-btn-height: 15px;
 $tl-marginTop: 25px;
 $tl-height: 25px;
 $tl-edge-margin: 15px;
+$height-delta: 3;
 
 .cmp_ind-scheduler {
   display: flex;
@@ -21,6 +22,20 @@ $tl-edge-margin: 15px;
     width: 1000px;
   }
   
+  .open-CEModal-wrapper {
+    text-align: right;
+    margin: 0 16px 10px 0;
+
+    button {
+      outline: 0;
+      border: none;
+      border-radius: 4px;
+      margin: 0 2px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+  }
+
   .left {
     width: 150px;
     height: calc(100% - #{$timelineHeader-height});
@@ -135,6 +150,25 @@ $tl-edge-margin: 15px;
     margin-bottom: calc(#{$tl-marginTop} + #{$date-move-btn-height});
   }
 
+  .timestrip {
+    --height-delta: #{$height-delta};
+    position: absolute;
+    
+    .time {
+      padding: 1px 8px;
+      border-radius: 6px;
+      background-color: #1466cc;
+      color: white;
+      font-size: 12px;
+    }
+
+    .line {
+      width: 1px;
+      height: calc(#{$tl-height} + #{$height-delta}px);
+      background-color: #1466cc;
+    }
+  }
+
   .event {
     position: absolute;
     height: 100%;
@@ -208,15 +242,26 @@ $tl-edge-margin: 15px;
 
     .description {
       margin-bottom: 8px;
+      word-break: break-word;
     }
 
     .footer {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
 
-      .item {
-        margin-left: 14px;
+      .time {
+        font-size: 12px;
+        color: #afafaf;
+      }
+
+      .items {
         display: flex;
+        align-items: center;
+
+        .item {
+          margin-left: 14px;
+          display: flex;
+        }
       }
 
       button {
@@ -224,6 +269,7 @@ $tl-edge-margin: 15px;
         outline: 0;
         border: none;
         cursor: pointer;
+        display: flex;
       }
 
       .i {
@@ -240,6 +286,8 @@ $tl-edge-margin: 15px;
     }
 
     .participants {
+      cursor: help;
+
       &:hover {
         i, span {color: black;}
       }

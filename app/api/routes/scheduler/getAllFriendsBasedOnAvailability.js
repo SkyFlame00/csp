@@ -1,6 +1,10 @@
 const {db} = require('csp-app-api/main');
 
 function getAllFriendsBasedOnAvailability(req, res) {
+  const date = new Date(req.body.date);
+  const timeFrom = new Date(req.body.timeFrom);
+  const timeTo = new Date(req.body.timeTo);
+
   const cases = {
     isNull: `
       case
@@ -62,7 +66,8 @@ function getAllFriendsBasedOnAvailability(req, res) {
     INNER JOIN users ON t.user_id=users.id
   `;
 
-  db.query(sql, [req.user.id, req.body.date, req.body.timeFrom, req.body.timeTo])
+  // db.query(sql, [req.user.id, req.body.date, req.body.timeFrom, req.body.timeTo])
+  db.query(sql, [req.user.id, date, timeFrom, timeTo])
     .then(result => {
       const participants = result.rows.map(p => {
         p.you = p['user_id'] === req.user.id;
