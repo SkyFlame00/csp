@@ -36,9 +36,25 @@ function sortNumbers(a, b) {
   return 0;
 }
 
+function getMonthName(monthNum) {
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return months[monthNum];
+}
+
+function getCoords(elem) {
+  var box = elem.getBoundingClientRect();
+
+  return {
+    top: box.top + pageYOffset,
+    left: box.left + pageXOffset
+  };
+}
+
 module.exports = {
   createElementFromHTML,
   Singleton,
   range,
-  sortNumbers
+  sortNumbers,
+  getMonthName,
+  getCoords
 };

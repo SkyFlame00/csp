@@ -66,7 +66,6 @@ function getAllFriendsBasedOnAvailability(req, res) {
     INNER JOIN users ON t.user_id=users.id
   `;
 
-  // db.query(sql, [req.user.id, req.body.date, req.body.timeFrom, req.body.timeTo])
   db.query(sql, [req.user.id, date, timeFrom, timeTo])
     .then(result => {
       const participants = result.rows.map(p => {

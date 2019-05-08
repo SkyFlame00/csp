@@ -19,22 +19,42 @@ const studentFormBlock = createElementFromHTML(/*html*/`
   <div class="form">Student</div>
 `);
 
+// const signupTabs = new Tabs({
+//   header: {
+//     className: 'actions clearfix',
+//     items: [
+//       {title: 'Sign up as client', tag: 'button'},
+//       {title: 'Sign up as executor', tag: 'button'},
+//       {title: 'As academic', tag: 'button'},
+//       {title: 'As student', tag: 'button'}
+//     ]
+//   },
+//   content: {
+//     items: [
+//       clientFormBlock,
+//       execFormBlock,
+//       academicFormBlock,
+//       studentFormBlock
+//     ]
+//   },
+//   animation: {
+//     name: 'tabsFlowAnimation',
+//     params: {padding: 15, speed: 850}
+//   }
+// });
+
 const signupTabs = new Tabs({
   header: {
     className: 'actions clearfix',
     items: [
       {title: 'Sign up as client', tag: 'button'},
-      {title: 'Sign up as executor', tag: 'button'},
-      {title: 'As academic', tag: 'button'},
-      {title: 'As student', tag: 'button'}
+      {title: 'Sign up as executor', tag: 'button'}
     ]
   },
   content: {
     items: [
       clientFormBlock,
-      execFormBlock,
-      academicFormBlock,
-      studentFormBlock
+      execFormBlock
     ]
   },
   animation: {

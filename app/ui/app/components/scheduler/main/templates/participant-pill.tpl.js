@@ -2,12 +2,12 @@ const {createElementFromHTML} = require('csp-app/libs/utilities');
 
 function template(participant) {
   const html = /*html*/`
-    <div class="participant">
-      <div class="user-info" data-id="${ participant['user_id'] }">
+    <div class="participant btn-primary" data-id="${ participant['user_id'] }">
+      <div class="user-info">
         ${ participant['username'] }
       </div>
       
-      <div class="close">
+      <div class="btn-close-wr">
         <button class="btn-close"><i class="i i-close"></i></button>
       </div>
     </div>

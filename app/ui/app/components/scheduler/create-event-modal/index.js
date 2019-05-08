@@ -1,5 +1,6 @@
 const Modal = require('csp-app/components/modals');
-const {mainTemplate, participantTemplate} = require('./templates');
+const {mainTemplate} = require('./templates');
+const {participantPillTemplate} = require('../main/templates');
 const SPModal = require('../select-participants-modal');
 const http = require('csp-app/libs/http');
 const ECModal = require('../event-created-modal');
@@ -70,7 +71,7 @@ CEModal.prototype.bindParticipantsEvents = function() {
     const {participants} = this.data;
     const pPill = evt.target.closest('.participant');
     const userId = +pPill.dataset.id;
-    const pIdx = participants.find(p => p['user_id'] == userId);
+    const pIdx = participants.findIndex(p => p['user_id'] == userId);
     pPill.remove();
     participants.splice(pIdx, 1);
 
@@ -98,7 +99,7 @@ CEModal.prototype.renderParticipants = function() {
   const {participants} = this.data;
   this.tplController.participants.place.innerHTML = '';
   participants.forEach(p => {
-    const pTplController = participantTemplate(p);
+    const pTplController = participantPillTemplate(p);
     this.tplController.participants.place.appendChild(pTplController.root);
     if (p.busy) pTplController.root.classList.add('busy');
   });
@@ -106,7 +107,7 @@ CEModal.prototype.renderParticipants = function() {
 
 CEModal.prototype.checkParticipantsBusyness = function() {
   const {participants} = this.data;
-  const busyList = participants.filter(p => p.busy);
+  const busyList = participants.filter(p => p.busy).map(p => p.username);
 
   if (busyList.length > 0) {
     const busyStr = busyList.join(', ');
@@ -169,9 +170,9 @@ CEModal.prototype.bindDateAndTimeEvents = function() {
       const participantsIds = participants.map(p => ({ 'user_id': p['user_id'] }));
       const postBody = {
         participantsIds,
-        date,
-        timeFrom,
-        timeTo
+        date: date.toString(),
+        timeFrom: timeFrom.toString(),
+        timeTo: timeTo.toString()
       };
   
       http.post('scheduler/getParticipantsAvailability', postBody)

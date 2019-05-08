@@ -26,7 +26,7 @@ const Form = function(options) {
   let errorsWrapper = document.createElement('div');
   let submitWrapper = document.createElement('div');
   let formControlsRefs = formControls.map(ctrl => ctrl.ref);
-  errorsWrapper.className = 'errors';
+  errorsWrapper.className = 'errors no-display';
   submitWrapper.className = 'actions';
   submitWrapper.innerHTML = '<input type="submit" value="Submit" />';
   submitRef = submitWrapper.querySelector('input[type="submit"]');

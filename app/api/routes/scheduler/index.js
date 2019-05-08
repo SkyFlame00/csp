@@ -6,5 +6,7 @@ router.post('/create-event', require('./createEvent'));
 router.post('/getAllMyEventsByDays', require('./getAllMyEventsByDays'));
 router.get('/getMyLocalTime', require('./getMyLocalTime'));
 router.get('/getEventInfo/:eventId', require('./getEventInfo'));
+router.post('/getAllFriendsAndMe', require('./getAllFriendsAndMe'));
+router.post('/getSharedSchedulerObjects', require('./getSharedSchedulerObjects'));
 
 module.exports = router;

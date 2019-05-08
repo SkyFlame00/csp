@@ -1,9 +1,14 @@
 const {db} = require('csp-app-api/main');
 const {flat, toLocalTime} = require('csp-app-api/resources/functions');
 
-// const dd = toLocalTime(new Date());
-const dd = new Date();
+// db.query('select * from events limit 5')
+//   .then(res => {
+//     console.log(toLocalTime(new Date(res.rows[0].date)));
+//   })
 
-console.log(dd);
+const d = toLocalTime(new Date());
+const dd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 9);
 
-db.query('insert into events (time_from) values ($1)', [dd])
+console.log(dd)
+console.log(dd.getDate());
+console.log(new Date().getDate())

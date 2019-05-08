@@ -133,4 +133,43 @@ $input-width: 100%;
     border: 1px solid $primary;
     font-size: .8em;
   }
+
+  .field-alert {
+    background-color: #fff3f3;
+    color: #de4b4b;
+    padding: 8px 10px;
+    font-size: .9em;
+    border: 1px solid #ffd5d5;
+    margin-top: 10px;
+  }
+
+  .participant {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: .9em;
+    margin-right: 8px;
+
+    &:last-child {margin-right: 0;}
+
+    .user-info {
+      float: left;
+    }
+
+    .btn-close-wr {
+      float: left;
+    }
+
+    .btn-close {
+      background: transparent;
+      color: white;
+      outline: 0;
+      border: none;
+      padding: 0;
+      font-size: .8em;
+      cursor: pointer;
+    }
+  }
+
+  .no-display {display: none;}
 }

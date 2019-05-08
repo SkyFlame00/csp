@@ -1,9 +1,11 @@
 const template = require('./index.tpl');
 const ISModal = require('../individual-scheduler');
+const SSModal = require('../shared-scheduler');
 
 const SchedulerComponent = function() {
   const tplController = template();
   let ISModalInstance = null;
+  let SSModalInstance = null;
 
   tplController.btnOpenIndSch.addEventListener('click', () => {
     if (!ISModalInstance) {
@@ -14,6 +16,17 @@ const SchedulerComponent = function() {
     }
     
     ISModalInstance.open();
+  });
+
+  tplController.btnOpenShSch.addEventListener('click', () => {
+    if (!SSModalInstance) {
+      SSModalInstance = SSModal.create({ destroyOnClose: true });
+      SSModalInstance.elements.root.addEventListener('close', () => {
+        SSModalInstance = null;
+      });
+    }
+    
+    SSModalInstance.open();
   });
 
   return {

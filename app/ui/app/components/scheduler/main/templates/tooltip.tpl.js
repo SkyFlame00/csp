@@ -19,11 +19,11 @@ function template(event) {
       break;
     case 'desirable':
       importance = 'rock';
-      importanceHint = 'The event is desirable to visit';
+      importanceHint = 'The event is desirable to attend';
       break;
     case 'important':
       importance = 'paper';
-      importanceHint = 'The event is obligatory to visit';
+      importanceHint = 'The event is obligatory to attend';
       break;
     default:
       importance = 'peace';

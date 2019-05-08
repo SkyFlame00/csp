@@ -1,14 +1,21 @@
 const template = require('./index.tpl');
 const CEModal = require('../create-event-modal');
 const {
-  dayTemplate,
-  timelineTemplate,
-  eventTemplate,
-  tooltipTemplate,
   timestripTemplate
 } = require('./templates');
+const {
+  timelineTitleTemplate: dayTemplate,
+  timelineTemplate,
+  tooltipTemplate
+} = require('../main/templates');
 const http = require('csp-app/libs/http');
 const EDModal = require('../event-details-modal');
+const {
+  calcSizes,
+  calcOffset,
+  calcWidth,
+  getEventElement
+} = require('../main/functions');
 
 function ISModal(options) {
   const tplController = template();
@@ -29,6 +36,11 @@ function ISModal(options) {
     root: this._instanceController.root
   };
 }
+
+ISModal.prototype.calcSizes = calcSizes('_instanceController');
+ISModal.prototype.calcOffset = calcOffset;
+ISModal.prototype.calcWidth = calcWidth;
+ISModal.prototype.getEventElement = getEventElement;
 
 ISModal.prototype.getDayStart = function(timestamp) {
   return new Date(timestamp.getFullYear(), timestamp.getMonth(), timestamp.getDate(), 0);
@@ -153,47 +165,6 @@ ISModal.prototype.bindISModalEvents = function() {
   });
 };
 
-ISModal.prototype.calcSizes = function() {
-  const controller = this._instanceController;
-
-  const startHour = 9;
-  const endHour = 21;
-  const margin = 30;
-  const width = controller.scheduler.timeline.offsetWidth - margin*2;
-  const minute = (width)/((endHour - startHour)*60);
-
-  this.sizes = {
-    startHour,
-    endHour,
-    width,
-    margin,
-    minute
-  };
-};
-
-ISModal.prototype.calcOffset = function(timeStart) {
-  const thisDay_900 = new Date(timeStart.getFullYear(), timeStart.getMonth(), timeStart.getDate(), this.sizes.startHour);
-  const timeStartMinutes = new Date(
-    timeStart.getFullYear(), timeStart.getMonth(), timeStart.getDate(),
-    timeStart.getHours(), timeStart.getMinutes()
-  );
-  const minutesDiff = (timeStartMinutes - thisDay_900)/(1000*60);
-  return minutesDiff * this.sizes.minute + this.sizes.margin;
-};
-
-ISModal.prototype.calcWidth = function(timeStart, timeEnd) {
-  const timeStartMinutes = new Date(
-    timeStart.getFullYear(), timeStart.getMonth(), timeStart.getDate(),
-    timeStart.getHours(), timeStart.getMinutes()
-  );
-  const timeEndMinutes = new Date(
-    timeEnd.getFullYear(), timeEnd.getMonth(), timeEnd.getDate(),
-    timeEnd.getHours(), timeEnd.getMinutes()
-  );
-  const minutesDiff = (timeEndMinutes - timeStartMinutes)/(1000*60);
-  return minutesDiff * this.sizes.minute;
-};
-
 ISModal.prototype.renderEvents = function() {
   const controller = this._instanceController;
   const days = this._days;
@@ -236,18 +207,6 @@ ISModal.prototype.renderDayEvents = function(dayNum) {
   controller.scheduler.timeline.insertBefore(timelineTplController.root, dayAfter && dayAfter.timelineTplController.root);
 };
 
-ISModal.prototype.getEventElement = function(event) {
-  const eventTplController = eventTemplate({ id: event.id });
-  const el = eventTplController.root;
-  const timeFrom = event['time_from'] ? event['time_from'] : event.time.from;
-  const timeTo = event['time_to'] ? event['time_to'] : event.time.to;
-  const offset = this.calcOffset(timeFrom);
-  const width = this.calcWidth(timeFrom, timeTo);
-  el.style.left = offset + 'px';
-  el.style.width = width + 'px';
-  return el;
-};
-
 ISModal.prototype.bindTooltips = function() {
   this._instanceController.root.addEventListener('click', evt => {
     const eventElement = evt.target.closest('.event');
@@ -266,7 +225,7 @@ ISModal.prototype.bindTooltips = function() {
       currentEventElement.classList.remove('clicked');
     }
 
-    if (!eventElement) {     
+    if (!eventElement) {
       return;
     }
 

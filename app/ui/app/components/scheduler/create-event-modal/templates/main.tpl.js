@@ -31,7 +31,7 @@ function template() {
       </div>
 
       <div class="field field-participants">
-        <div class="field-label">Participants <button class="btn-primary-outlined"><i class="i i-plus"></i>Add participant</button></div>
+        <div class="field-label">Participants <button class="btn-primary-outlined"><i class="i i-plus"></i>Select participants</button></div>
         <div class="field-input"></div>
         <div class="field-alert no-display">
           These cannot participate: <span class="participants-list"></span>

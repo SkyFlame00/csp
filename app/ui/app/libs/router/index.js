@@ -109,7 +109,6 @@ Router.prototype.getRoute = function(link, routes = this.routes) {
         }
       }
     }
-    
     // In case it's terminal route
     else if (regexp.lastIndex > 0) {
       regexp.lastIndex = 0;
@@ -174,7 +173,7 @@ Router.prototype.navigate = function(link, handlerParams) {
     }
   }
   fns[0]();
-  history.pushState('', '', '/' + link);
+  history.pushState('', '', '/' + window.location.search);
 };
 
 Router.prototype.testNav = function(link, handlerParams) {

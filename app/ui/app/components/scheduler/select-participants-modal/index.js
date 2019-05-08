@@ -23,7 +23,7 @@ function participantTemplate(participant) {
         <div class="user-name">${ username }</div>
         ${
           participant['busy'] ?
-          /*html*/`<div class="busy"><i class="i i-clock"></i> Busy</div>`
+          /*html*/`<div class="busy"><i class="i i-clock"></i><span>Busy</span></div>`
           : ''
         }
       </div>
@@ -53,18 +53,28 @@ function SPModal(options) {
     destroyOnClose: true
   });
 
-  const params = {
-    date: date.toString(),
-    timeFrom: timeFrom.toString(),
-    timeTo: timeTo.toString()
-  };
   const tplController = listTemplate();
   const submit = SPModalInstance.elements.submit;
+  const isAllFriends = date && timeFrom && timeTo;
   let participants = [];
+  let params;
+  let apiURL = '';
   
   SPModalInstance.elements.body.appendChild(tplController.root);
 
-  http.post('scheduler/getAllFriendsBasedOnAvailability', params)
+  if (isAllFriends) {
+    params = {
+      date: date.toString(),
+      timeFrom: timeFrom.toString(),
+      timeTo: timeTo.toString()
+    };
+    apiURL = 'scheduler/getAllFriendsBasedOnAvailability';
+  }
+  else {
+    apiURL = 'scheduler/getAllFriendsAndMe';
+  }
+
+  http.post(apiURL, params || {})
     .then(friends => {
       friends = friends.sort((a, b) => {
         if (a.you == false) return 1;

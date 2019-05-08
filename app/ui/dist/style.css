@@ -55,12 +55,23 @@
       border-bottom: 1px solid #323a5f; }
       .cmp_dashboard .sidebar .logo-block .logo {
         font-size: 1.5em;
-        font-weight: bold; }
+        font-weight: bold;
+        text-decoration: none;
+        color: #b4bad4;
+        cursor: pointer; }
+        .cmp_dashboard .sidebar .logo-block .logo:hover {
+          text-decoration: underline; }
     .cmp_dashboard .sidebar .menu {
       margin-top: 20px; }
       .cmp_dashboard .sidebar .menu ul li a {
         display: block;
-        padding: 10px 16px; }
+        padding: 10px 16px;
+        cursor: pointer;
+        transition: .15s linear; }
+        .cmp_dashboard .sidebar .menu ul li a:hover {
+          background-color: #474f6f;
+          color: #f9faff;
+          padding-left: 20px; }
         .cmp_dashboard .sidebar .menu ul li a i {
           display: inline-block;
           width: 20px;
@@ -82,6 +93,65 @@
     background-color: #fbfbfb;
     box-sizing: border-box;
     overflow-y: auto; }
+  .cmp_dashboard .user-panel {
+    float: right;
+    height: 100%;
+    position: relative;
+    color: #616161;
+    position: relative; }
+    .cmp_dashboard .user-panel .hello {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      cursor: pointer;
+      padding: 0 10px;
+      transition: .15s linear; }
+      .cmp_dashboard .user-panel .hello:hover {
+        background-color: whitesmoke; }
+      .cmp_dashboard .user-panel .hello .avatar-wrapper {
+        border-radius: 50%;
+        width: 24px;
+        height: 24px; }
+        .cmp_dashboard .user-panel .hello .avatar-wrapper img {
+          display: block;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%; }
+      .cmp_dashboard .user-panel .hello .username-wrapper {
+        margin: 0 8px;
+        font-size: .9em; }
+      .cmp_dashboard .user-panel .hello .more-wrapper {
+        font-size: .8em; }
+    .cmp_dashboard .user-panel .actions {
+      top: calc(100% - 7px);
+      right: 0;
+      background-color: white;
+      padding: 10px 0;
+      width: 200px;
+      position: absolute;
+      z-index: 10; }
+      .cmp_dashboard .user-panel .actions ul li {
+        list-style-type: none; }
+      .cmp_dashboard .user-panel .actions a {
+        text-decoration: none; }
+      .cmp_dashboard .user-panel .actions button {
+        border: none;
+        background-color: transparent;
+        outline: 0; }
+      .cmp_dashboard .user-panel .actions a, .cmp_dashboard .user-panel .actions button {
+        color: black;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 10px;
+        border-radius: unset;
+        font-size: .9em;
+        cursor: pointer;
+        text-align: left; }
+      .cmp_dashboard .user-panel .actions a:hover, .cmp_dashboard .user-panel .actions button:hover {
+        background-color: whitesmoke; }
+    .cmp_dashboard .user-panel .no-display {
+      display: none; }
 
 @font-face {
   font-family: 'Open Sans';
@@ -164,6 +234,9 @@ html, body, #app {
 
 .i-link::before {
   content: "\e90f"; }
+
+.i-bulb::before {
+  content: "\e910"; }
 
 
 .modals {
@@ -296,6 +369,35 @@ html, body, #app {
     cursor: pointer;
     border: 1px solid #1466cc;
     font-size: .8em; }
+  .ce-form .field-alert {
+    background-color: #fff3f3;
+    color: #de4b4b;
+    padding: 8px 10px;
+    font-size: .9em;
+    border: 1px solid #ffd5d5;
+    margin-top: 10px; }
+  .ce-form .participant {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: .9em;
+    margin-right: 8px; }
+    .ce-form .participant:last-child {
+      margin-right: 0; }
+    .ce-form .participant .user-info {
+      float: left; }
+    .ce-form .participant .btn-close-wr {
+      float: left; }
+    .ce-form .participant .btn-close {
+      background: transparent;
+      color: white;
+      outline: 0;
+      border: none;
+      padding: 0;
+      font-size: .8em;
+      cursor: pointer; }
+  .ce-form .no-display {
+    display: none; }
 
 
 .cmp_ind-scheduler {
@@ -305,205 +407,8 @@ html, body, #app {
   height: 100%; }
   .cmp_ind-scheduler .scheduler-container {
     margin: 0 auto; }
-  .cmp_ind-scheduler .scheduler {
-    display: flex;
-    width: 1000px; }
-  .cmp_ind-scheduler .open-CEModal-wrapper {
-    text-align: right;
-    margin: 0 16px 10px 0; }
-    .cmp_ind-scheduler .open-CEModal-wrapper button {
-      outline: 0;
-      border: none;
-      border-radius: 4px;
-      margin: 0 2px;
-      padding: 4px 8px;
-      cursor: pointer; }
-  .cmp_ind-scheduler .left {
-    width: 150px;
-    height: calc(100% - 40px);
-    background-color: white;
-    margin-top: 40px;
-    border-radius: 12px 0 0 12px;
-    border: 1px solid #e2e2e2;
-    border-right: none; }
-  .cmp_ind-scheduler .right {
-    width: calc(100% - 150px);
-    background-color: white;
-    border-radius: 12px 12px 12px 0;
-    height: 100%;
-    position: relative;
-    border: 1px solid #e2e2e2; }
-  .cmp_ind-scheduler .timeline-h {
-    position: relative;
-    width: 100%;
-    height: 40px;
-    background-color: white;
-    border-bottom: 1px solid #e2e2e2;
-    border-radius: 12px 12px 0 0;
-    box-sizing: border-box; }
-  .cmp_ind-scheduler .hour {
-    font-size: 12px;
-    top: calc(40px/2 - 12px/2);
-    position: absolute;
-    color: gray; }
-  .cmp_ind-scheduler .strips {
-    width: 100%; }
-  .cmp_ind-scheduler .strip {
-    position: absolute;
-    width: 1px;
-    height: 100%;
-    background-color: #e6e6e6;
-    top: 0; }
-  .cmp_ind-scheduler .date-move button {
-    display: block;
-    width: 100%;
-    height: 15px;
-    text-align: center;
-    border: none;
-    background-color: whitesmoke;
-    cursor: pointer;
-    box-sizing: border-box;
-    outline: none; }
-    .cmp_ind-scheduler .date-move button i {
-      display: block;
-      font-size: 12px;
-      color: gray; }
-  .cmp_ind-scheduler .date-up-wrapper button {
-    border-radius: 12px 0 0 0;
-    border-bottom: 1px solid #e2e2e2; }
-    .cmp_ind-scheduler .date-up-wrapper button i {
-      transform: rotate(180deg); }
-  .cmp_ind-scheduler .date-down-wrapper button {
-    border-radius: 0 0 0 12px;
-    border-top: 1px solid #e2e2e2; }
-    .cmp_ind-scheduler .date-down-wrapper button i {
-      transform: rotate(0deg); }
-  .cmp_ind-scheduler .date {
-    margin-top: 25px;
-    line-height: 25px;
-    text-align: center; }
   .cmp_ind-scheduler .date:first-child {
     margin-top: 25px; }
-  .cmp_ind-scheduler .date:last-child {
-    margin-bottom: 25px; }
-  .cmp_ind-scheduler .timeline {
-    margin-top: 25px;
-    background-color: rgba(235, 235, 235, 0.4);
-    width: 100%;
-    height: 25px;
-    position: relative; }
-  .cmp_ind-scheduler .timeline:first-child {
-    margin-top: calc(25px + 15px); }
-  .cmp_ind-scheduler .timeline:last-child {
-    margin-bottom: calc(25px + 15px); }
-  .cmp_ind-scheduler .timestrip {
-    --height-delta: 3;
-    position: absolute; }
-    .cmp_ind-scheduler .timestrip .time {
-      padding: 1px 8px;
-      border-radius: 6px;
-      background-color: #1466cc;
-      color: white;
-      font-size: 12px; }
-    .cmp_ind-scheduler .timestrip .line {
-      width: 1px;
-      height: calc(25px + 3px);
-      background-color: #1466cc; }
-  .cmp_ind-scheduler .event {
-    position: absolute;
-    height: 100%;
-    background-color: rgba(210, 210, 210, 0.4);
-    transition: background-color .15s linear;
-    cursor: pointer;
-    z-index: 50; }
-    .cmp_ind-scheduler .event:hover, .cmp_ind-scheduler .event.clicked {
-      background-color: #d2d2d2; }
-    .cmp_ind-scheduler .event.clicked {
-      z-index: 51; }
-  .cmp_ind-scheduler .tooltip {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 300px;
-    background-color: white;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: default;
-    border-radius: 8px;
-    box-shadow: 0 2px 13px 0 #bdbdbd; }
-    .cmp_ind-scheduler .tooltip::before {
-      position: absolute;
-      content: '';
-      display: block;
-      top: -20px;
-      left: 10px;
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-      border-bottom: 10px solid white; }
-    .cmp_ind-scheduler .tooltip .header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px; }
-      .cmp_ind-scheduler .tooltip .header h3 {
-        font-size: 1em; }
-      .cmp_ind-scheduler .tooltip .header .importance .i {
-        font-size: 14px;
-        background-color: #efefef;
-        color: #bdbdbd;
-        padding: 7px;
-        border-radius: 50%;
-        cursor: help; }
-      .cmp_ind-scheduler .tooltip .header .importance .i-hand-paper {
-        background-color: #ffdddd;
-        color: #ea4444; }
-      .cmp_ind-scheduler .tooltip .header .importance .i-hand-rock {
-        background-color: #ffecc7;
-        color: #e8af3e; }
-      .cmp_ind-scheduler .tooltip .header .importance .i-hand-peace {
-        background-color: #cbffcb;
-        color: #5fde5f; }
-    .cmp_ind-scheduler .tooltip .description {
-      margin-bottom: 8px;
-      word-break: break-word; }
-    .cmp_ind-scheduler .tooltip .footer {
-      display: flex;
-      justify-content: space-between; }
-      .cmp_ind-scheduler .tooltip .footer .time {
-        font-size: 12px;
-        color: #afafaf; }
-      .cmp_ind-scheduler .tooltip .footer .items {
-        display: flex;
-        align-items: center; }
-        .cmp_ind-scheduler .tooltip .footer .items .item {
-          margin-left: 14px;
-          display: flex; }
-      .cmp_ind-scheduler .tooltip .footer button {
-        background: none;
-        outline: 0;
-        border: none;
-        cursor: pointer;
-        display: flex; }
-      .cmp_ind-scheduler .tooltip .footer .i {
-        color: gray;
-        transition: .15s linear;
-        font-size: 14px; }
-        .cmp_ind-scheduler .tooltip .footer .i:hover {
-          color: black; }
-      .cmp_ind-scheduler .tooltip .footer a {
-        display: flex;
-        text-decoration: none; }
-    .cmp_ind-scheduler .tooltip .participants {
-      cursor: help; }
-      .cmp_ind-scheduler .tooltip .participants:hover i, .cmp_ind-scheduler .tooltip .participants:hover span {
-        color: black; }
-      .cmp_ind-scheduler .tooltip .participants span {
-        margin-left: 5px;
-        font-size: 14px;
-        color: #a0a0a0;
-        line-height: 14px; }
-  .cmp_ind-scheduler .no-display {
-    display: none; }
 
 .cmp_scheduler {
   position: absolute;
@@ -543,35 +448,47 @@ html, body, #app {
     width: calc(100% - 250px);
     height: 100%; }
 
-.cmp_sel-ps .participant {
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  justify-content: center;
-  padding: 8px 12px;
-  border-bottom: 1px solid whitesmoke; }
-  .cmp_sel-ps .participant:last-child {
-    border-bottom: none; }
-  .cmp_sel-ps .participant .select-box {
+.cmp_sel-ps {
+  height: 100%;
+  overflow-y: auto; }
+  .cmp_sel-ps .participant {
     display: flex;
-    border-radius: 50%;
-    border: 1px solid whitesmoke;
-    width: 30px;
-    height: 30px; }
-    .cmp_sel-ps .participant .select-box i {
-      display: none;
-      color: white; }
-  .cmp_sel-ps .participant .busy {
-    color: yellow;
-    font-size: .8em; }
-  .cmp_sel-ps .participant .user-info {
-    margin-left: 10px; }
-
-.cmp_sel-ps .participant.selected .select-box {
-  background-color: green;
-  border-color: green; }
-  .cmp_sel-ps .participant.selected .select-box i {
-    display: block; }
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid gainsboro;
+    cursor: pointer; }
+    .cmp_sel-ps .participant:last-child {
+      border-bottom: none; }
+    .cmp_sel-ps .participant:hover {
+      background-color: whitesmoke; }
+    .cmp_sel-ps .participant .select-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid gainsboro;
+      width: 30px;
+      height: 30px; }
+      .cmp_sel-ps .participant .select-box i {
+        display: none;
+        color: white; }
+    .cmp_sel-ps .participant .user-info {
+      margin-left: 12px; }
+    .cmp_sel-ps .participant .busy {
+      color: #d60b0b;
+      font-size: .7em;
+      display: flex;
+      align-items: center; }
+      .cmp_sel-ps .participant .busy span {
+        margin-left: 3px;
+        line-height: 100%; }
+  .cmp_sel-ps .participant.selected .select-box {
+    background-color: #70d270;
+    border-color: #70d270; }
+    .cmp_sel-ps .participant.selected .select-box i {
+      display: block; }
 
 /*
 ** @Header
@@ -678,6 +595,16 @@ html, body, #app {
   outline: 0;
   border: none; }
 
+.cmp_start .no-display {
+  display: none; }
+
+.cmp_start .errors {
+  padding: 10px;
+  background-color: #fff3f3;
+  color: #de4b4b;
+  font-size: .9em;
+  border-radius: 6px; }
+
 .start-tabs .tabs-content-item.active {
   display: block; }
 
@@ -730,6 +657,8 @@ html, body, #app {
     font-size: .9em;
     border: none;
     border-bottom: 1px solid #e6e6e6; }
+  .login-block .input-block .errors, .signup-block .input-block .errors {
+    margin-top: 10px; }
 
 .login-block .form .actions, .signup-block .form .actions {
   margin-top: 20px; }
@@ -823,6 +752,380 @@ html, body, #app {
 .block-shadowed {
   border-radius: 8px;
   box-shadow: 0 0 12px 0 #e6e6e6; }
+
+.cmp_ind-scheduler .scheduler, .ss-main-wrapper .scheduler {
+  display: flex;
+  width: 1000px; }
+
+.cmp_ind-scheduler .open-CEModal-wrapper, .ss-main-wrapper .open-CEModal-wrapper {
+  text-align: right;
+  margin: 0 16px 10px 0; }
+  .cmp_ind-scheduler .open-CEModal-wrapper button, .ss-main-wrapper .open-CEModal-wrapper button {
+    outline: 0;
+    border: none;
+    border-radius: 4px;
+    margin: 0 2px;
+    padding: 4px 8px;
+    cursor: pointer; }
+
+.cmp_ind-scheduler .left, .ss-main-wrapper .left {
+  width: 150px;
+  height: calc(100% - 40px);
+  background-color: white;
+  margin-top: 40px;
+  border-radius: 12px 0 0 12px;
+  border: 1px solid #e2e2e2;
+  border-right: none; }
+
+.cmp_ind-scheduler .right, .ss-main-wrapper .right {
+  width: calc(100% - 150px);
+  background-color: white;
+  border-radius: 12px 12px 12px 0;
+  height: 100%;
+  position: relative;
+  border: 1px solid #e2e2e2; }
+
+.cmp_ind-scheduler .timeline-h, .ss-main-wrapper .timeline-h {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  border-bottom: 1px solid #e2e2e2;
+  border-radius: 12px 12px 0 0;
+  box-sizing: border-box; }
+
+.cmp_ind-scheduler .hour, .ss-main-wrapper .hour {
+  font-size: 12px;
+  top: calc(40px/2 - 12px/2);
+  position: absolute;
+  color: gray; }
+
+.cmp_ind-scheduler .strips, .ss-main-wrapper .strips {
+  width: 100%; }
+
+.cmp_ind-scheduler .strip, .ss-main-wrapper .strip {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background-color: #e6e6e6;
+  top: 0; }
+
+.cmp_ind-scheduler .date-move button, .ss-main-wrapper .date-move button {
+  display: block;
+  width: 100%;
+  height: 15px;
+  text-align: center;
+  border: none;
+  background-color: whitesmoke;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: none; }
+  .cmp_ind-scheduler .date-move button i, .ss-main-wrapper .date-move button i {
+    display: block;
+    font-size: 12px;
+    color: gray; }
+
+.cmp_ind-scheduler .date-up-wrapper button, .ss-main-wrapper .date-up-wrapper button {
+  border-radius: 12px 0 0 0;
+  border-bottom: 1px solid #e2e2e2; }
+  .cmp_ind-scheduler .date-up-wrapper button i, .ss-main-wrapper .date-up-wrapper button i {
+    transform: rotate(180deg); }
+
+.cmp_ind-scheduler .date-down-wrapper button, .ss-main-wrapper .date-down-wrapper button {
+  border-radius: 0 0 0 12px;
+  border-top: 1px solid #e2e2e2; }
+  .cmp_ind-scheduler .date-down-wrapper button i, .ss-main-wrapper .date-down-wrapper button i {
+    transform: rotate(0deg); }
+
+.cmp_ind-scheduler .date, .ss-main-wrapper .date {
+  margin-top: 25px;
+  line-height: 25px;
+  text-align: center; }
+
+.cmp_ind-scheduler .date:last-child, .ss-main-wrapper .date:last-child {
+  margin-bottom: 25px; }
+
+.cmp_ind-scheduler .timeline, .ss-main-wrapper .timeline {
+  margin-top: 25px;
+  background-color: rgba(235, 235, 235, 0.4);
+  width: 100%;
+  height: 25px;
+  position: relative; }
+
+.cmp_ind-scheduler .timeline:first-child, .ss-main-wrapper .timeline:first-child {
+  margin-top: calc(25px + 15px); }
+
+.cmp_ind-scheduler .timeline:last-child, .ss-main-wrapper .timeline:last-child {
+  margin-bottom: calc(25px + 15px); }
+
+.cmp_ind-scheduler .timestrip, .ss-main-wrapper .timestrip {
+  --height-delta: 3;
+  position: absolute; }
+  .cmp_ind-scheduler .timestrip .time, .ss-main-wrapper .timestrip .time {
+    padding: 1px 8px;
+    border-radius: 6px;
+    background-color: #1466cc;
+    color: white;
+    font-size: 12px; }
+  .cmp_ind-scheduler .timestrip .line, .ss-main-wrapper .timestrip .line {
+    width: 1px;
+    height: calc(25px + 3px);
+    background-color: #1466cc; }
+
+.cmp_ind-scheduler .event, .ss-main-wrapper .event {
+  position: absolute;
+  height: 100%;
+  background-color: rgba(210, 210, 210, 0.4);
+  transition: background-color .15s linear;
+  cursor: pointer;
+  z-index: 50; }
+  .cmp_ind-scheduler .event:hover, .cmp_ind-scheduler .event.clicked, .ss-main-wrapper .event:hover, .ss-main-wrapper .event.clicked {
+    background-color: #d2d2d2; }
+  .cmp_ind-scheduler .event.clicked, .ss-main-wrapper .event.clicked {
+    z-index: 51; }
+
+.cmp_ind-scheduler .tooltip, .ss-main-wrapper .tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 300px;
+  background-color: white;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: default;
+  border-radius: 8px;
+  box-shadow: 0 2px 13px 0 #bdbdbd; }
+  .cmp_ind-scheduler .tooltip::before, .ss-main-wrapper .tooltip::before {
+    position: absolute;
+    content: '';
+    display: block;
+    top: -20px;
+    left: 10px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom: 10px solid white; }
+  .cmp_ind-scheduler .tooltip .header, .ss-main-wrapper .tooltip .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px; }
+    .cmp_ind-scheduler .tooltip .header h3, .ss-main-wrapper .tooltip .header h3 {
+      font-size: 1em; }
+    .cmp_ind-scheduler .tooltip .header .importance .i, .ss-main-wrapper .tooltip .header .importance .i {
+      font-size: 14px;
+      background-color: #efefef;
+      color: #bdbdbd;
+      padding: 7px;
+      border-radius: 50%;
+      cursor: help; }
+    .cmp_ind-scheduler .tooltip .header .importance .i-hand-paper, .ss-main-wrapper .tooltip .header .importance .i-hand-paper {
+      background-color: #ffdddd;
+      color: #ea4444; }
+    .cmp_ind-scheduler .tooltip .header .importance .i-hand-rock, .ss-main-wrapper .tooltip .header .importance .i-hand-rock {
+      background-color: #ffecc7;
+      color: #e8af3e; }
+    .cmp_ind-scheduler .tooltip .header .importance .i-hand-peace, .ss-main-wrapper .tooltip .header .importance .i-hand-peace {
+      background-color: #cbffcb;
+      color: #5fde5f; }
+  .cmp_ind-scheduler .tooltip .description, .ss-main-wrapper .tooltip .description {
+    margin-bottom: 8px;
+    word-break: break-word; }
+  .cmp_ind-scheduler .tooltip .footer, .ss-main-wrapper .tooltip .footer {
+    display: flex;
+    justify-content: space-between; }
+    .cmp_ind-scheduler .tooltip .footer .time, .ss-main-wrapper .tooltip .footer .time {
+      font-size: 12px;
+      color: #afafaf; }
+    .cmp_ind-scheduler .tooltip .footer .items, .ss-main-wrapper .tooltip .footer .items {
+      display: flex;
+      align-items: center; }
+      .cmp_ind-scheduler .tooltip .footer .items .item, .ss-main-wrapper .tooltip .footer .items .item {
+        margin-left: 14px;
+        display: flex; }
+    .cmp_ind-scheduler .tooltip .footer button, .ss-main-wrapper .tooltip .footer button {
+      background: none;
+      outline: 0;
+      border: none;
+      cursor: pointer;
+      display: flex; }
+    .cmp_ind-scheduler .tooltip .footer .i, .ss-main-wrapper .tooltip .footer .i {
+      color: gray;
+      transition: .15s linear;
+      font-size: 14px; }
+      .cmp_ind-scheduler .tooltip .footer .i:hover, .ss-main-wrapper .tooltip .footer .i:hover {
+        color: black; }
+    .cmp_ind-scheduler .tooltip .footer a, .ss-main-wrapper .tooltip .footer a {
+      display: flex;
+      text-decoration: none; }
+  .cmp_ind-scheduler .tooltip .participants, .ss-main-wrapper .tooltip .participants {
+    cursor: help; }
+    .cmp_ind-scheduler .tooltip .participants:hover i, .cmp_ind-scheduler .tooltip .participants:hover span, .ss-main-wrapper .tooltip .participants:hover i, .ss-main-wrapper .tooltip .participants:hover span {
+      color: black; }
+    .cmp_ind-scheduler .tooltip .participants span, .ss-main-wrapper .tooltip .participants span {
+      margin-left: 5px;
+      font-size: 14px;
+      color: #a0a0a0;
+      line-height: 14px; }
+
+.cmp_ind-scheduler .no-display, .ss-main-wrapper .no-display {
+  display: none; }
+
+.sidebar-ss {
+  padding: 10px; }
+  .sidebar-ss .no-display {
+    display: none; }
+  .sidebar-ss .input-block label,
+  .sidebar-ss .time .inputs .fixed label {
+    cursor: pointer; }
+  .sidebar-ss .input-block input[type="text"],
+  .sidebar-ss .time .inputs .fixed input[type="text"] {
+    border-radius: 4px;
+    padding: 4px 8px;
+    border: 1px solid gainsboro;
+    outline: 0; }
+    .sidebar-ss .input-block input[type="text"]:focus,
+    .sidebar-ss .time .inputs .fixed input[type="text"]:focus {
+      border-color: #1466cc; }
+  .sidebar-ss .participants .header button,
+  .sidebar-ss .submit-wrapper button {
+    outline: 0;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer; }
+  .sidebar-ss .participants .header {
+    display: flex; }
+    .sidebar-ss .participants .header h2 {
+      font-weight: normal;
+      font-size: 1.2em;
+      display: inline; }
+    .sidebar-ss .participants .header button {
+      margin-left: 7px;
+      border: 1px solid #1466cc;
+      color: #1466cc;
+      background-color: transparent; }
+  .sidebar-ss .participant {
+    display: block;
+    float: left;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: .9em;
+    margin-right: 8px;
+    margin-top: 7px; }
+    .sidebar-ss .participant:last-child {
+      margin-right: 0; }
+    .sidebar-ss .participant .user-info {
+      float: left; }
+    .sidebar-ss .participant .btn-close-wr {
+      float: left; }
+    .sidebar-ss .participant .btn-close {
+      background: transparent;
+      color: white;
+      outline: 0;
+      border: none;
+      padding: 0;
+      font-size: .8em;
+      margin-left: 5px;
+      cursor: pointer; }
+  .sidebar-ss .days .input-block,
+  .sidebar-ss .time .inputs .input-block {
+    font-size: .9em;
+    margin-top: 7px; }
+    .sidebar-ss .days .input-block:first-child,
+    .sidebar-ss .time .inputs .input-block:first-child {
+      margin-top: 0; }
+    .sidebar-ss .days .input-block label,
+    .sidebar-ss .time .inputs .input-block label {
+      width: 50px;
+      display: inline-block; }
+  .sidebar-ss .days {
+    margin-top: 15px;
+    border: 1px solid gainsboro;
+    border-radius: 6px; }
+    .sidebar-ss .days .header {
+      padding: 10px;
+      border-bottom: 1px solid gainsboro; }
+    .sidebar-ss .days .body {
+      padding: 10px; }
+    .sidebar-ss .days input {
+      width: 75px; }
+  .sidebar-ss .time {
+    margin-top: 15px;
+    border: 1px solid gainsboro;
+    border-radius: 6px; }
+    .sidebar-ss .time .checkbox {
+      padding: 10px; }
+    .sidebar-ss .time .options {
+      border-top: 1px solid gainsboro;
+      padding: 10px; }
+    .sidebar-ss .time .inputs {
+      border-top: 1px solid gainsboro;
+      padding: 10px; }
+    .sidebar-ss .time .inputs input {
+      width: 60px; }
+  .sidebar-ss .submit-wrapper {
+    margin-top: 15px; }
+    .sidebar-ss .submit-wrapper button {
+      display: block;
+      width: 100%;
+      box-sizing: border-box; }
+  .sidebar-ss .results {
+    margin-top: 15px;
+    border: 1px solid gainsboro;
+    border-radius: 6px; }
+    .sidebar-ss .results .header {
+      padding: 10px; }
+      .sidebar-ss .results .header h2 {
+        font-weight: normal;
+        font-size: 1em; }
+    .sidebar-ss .results .body {
+      padding: 0 10px 10px 10px;
+      border-top: 1px solid gainsboro; }
+  .sidebar-ss .results-btn {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: .8em;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    margin: 7px 7px 0 0; }
+
+.ss-main-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; }
+  .ss-main-wrapper .scheduler-container {
+    width: 1000px;
+    margin: 0 auto; }
+  .ss-main-wrapper .panel {
+    display: flex;
+    justify-content: space-between; }
+  .ss-main-wrapper .panel-date {
+    font-size: 1.3em;
+    width: 150px;
+    text-align: center; }
+  .ss-main-wrapper .timeline:first-child {
+    margin-top: 25px; }
+  .ss-main-wrapper .timeline:last-child {
+    margin-bottom: 25px; }
+  .ss-main-wrapper .common-fis {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 40px; }
+  .ss-main-wrapper .common-fi {
+    top: 0;
+    left: 0;
+    border: 1px solid #b6deb6;
+    background-color: #00b9001f;
+    position: absolute;
+    box-sizing: border-box;
+    transition: background-color .15s linear;
+    cursor: help; }
+    .ss-main-wrapper .common-fi:hover {
+      background-color: #00b90033; }
 
 .cmp_user-page {
   width: 900px;

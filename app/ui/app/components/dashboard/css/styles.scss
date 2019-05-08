@@ -25,6 +25,10 @@ $header-border-height: 1px;
       .logo {
         font-size: 1.5em;
         font-weight: bold;
+        text-decoration: none;
+        color: $sidebar-color;
+        cursor: pointer;
+        &:hover {text-decoration: underline;}
       }
     }
 
@@ -34,6 +38,14 @@ $header-border-height: 1px;
       ul li a {
         display: block;
         padding: 10px 16px;
+        cursor: pointer;
+        transition: .15s linear;
+
+        &:hover {
+          background-color: #474f6f;
+          color: #f9faff;
+          padding-left: 20px;
+        }
 
         i {
           display: inline-block;
@@ -67,6 +79,87 @@ $header-border-height: 1px;
     background-color: #fbfbfb;
     box-sizing: border-box;
     overflow-y: auto;
+  }
+
+  .user-panel {
+    float: right;
+    height: 100%;
+    position: relative;
+    color: #616161;
+    position: relative;
+
+    .hello {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      cursor: pointer;
+      padding: 0 10px;
+      transition: .15s linear;
+
+      &:hover {background-color: whitesmoke;}
+
+      .avatar-wrapper {
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+
+        img {
+          display: block;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+        }
+      }
+
+      .username-wrapper {
+        margin: 0 8px;
+        font-size: .9em;
+      }
+
+      .more-wrapper {
+        font-size: .8em;
+      }
+    }
+    
+    .actions {
+      top: calc(100% - 7px);
+      right: 0;
+      background-color: white;
+      padding: 10px 0;
+      width: 200px;
+      position: absolute;
+      z-index: 10;
+
+      ul li {list-style-type: none;}
+
+      a {
+        text-decoration: none;
+      }
+
+      button {
+        border: none;
+        background-color: transparent;
+        outline: 0;
+      }
+
+      a, button {
+        color: black;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 10px;
+        border-radius: unset;
+        font-size: .9em;
+        cursor: pointer;
+        text-align: left;
+      }
+
+      a:hover, button:hover {
+        background-color: whitesmoke;
+      }
+    }
+
+    .no-display {display: none;}
   }
 }
 

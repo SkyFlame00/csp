@@ -26,6 +26,17 @@
     outline: 0;
     border: none;
   }
+
+  .no-display {display: none;}
+
+  .errors {
+    padding: 10px;
+    background-color: #fff3f3;
+    // border: 1px solid #ffcaca;
+    color: #de4b4b;
+    font-size: .9em;
+    border-radius: 6px;
+  }
 }
 
 // No difference in case that we instead would put code below
@@ -99,6 +110,10 @@
       font-size: .9em;
       border: none;
       border-bottom: 1px solid $regular-color;
+    }
+
+    .errors {
+      margin-top: 10px;
     }
   }
 

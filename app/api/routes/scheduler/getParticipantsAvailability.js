@@ -1,6 +1,10 @@
 const {db} = require('csp-app-api/main');
 
 function getParticipantsAvailability(req, res) {
+  const date = new Date(req.body.date);
+  const timeFrom = new Date(req.body.timeFrom);
+  const timeTo = new Date(req.body.timeTo);
+
   const cases = {
     isNull: `
       case
@@ -54,7 +58,7 @@ function getParticipantsAvailability(req, res) {
     INNER JOIN users ON t.user_id=users.id
   `;
 
-  db.query(sql, [req.body.date, req.body.timeFrom, req.body.timeTo])
+  db.query(sql, [date, timeFrom, timeTo])
     .then(result => {
       console.log(result.rows)
       res.json( result.rows );

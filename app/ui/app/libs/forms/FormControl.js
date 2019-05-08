@@ -52,6 +52,16 @@ const validate = function(control) {
     items[error].ref.remove();
     items[error] = null;
   });
+
+  const errorsBool = Object.keys(items).map(item => !!items[item]);
+  const errorsNum = errorsBool.filter(e => e).length;
+  
+  if (errorsNum > 0) {
+    control.errors.ref.classList.remove('no-display');
+  }
+  else {
+    control.errors.ref.classList.add('no-display');
+  }
 };
 
 const bindErrorHandling = function(control) {
@@ -106,6 +116,7 @@ const tagInput = function(options) {
   wrapper.innerHTML = html;
   let controlRef = wrapper.querySelector(controlId);
   let errorsRef = wrapper.querySelector('.'+errorsId);
+  errorsRef.classList.add('no-display');
 
   if (options.attributes) {
     options.attributes.forEach(attr => {

@@ -4,6 +4,7 @@ const queries = require('./queries');
 const getSQLStrings = require('./getSQLStrings');
 const flat = require('./flat');
 const toLocalTime = require('./toLocalTime');
+const range = require('./range');
 
 module.exports = {
   extractBearerToken,
@@ -11,5 +12,6 @@ module.exports = {
   queries,
   getSQLStrings,
   flat,
-  toLocalTime
+  toLocalTime,
+  range
 };

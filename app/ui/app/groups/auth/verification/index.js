@@ -37,7 +37,8 @@ const VerificationComponent = function() {
       let message;
 
       if (res.success) {
-        message = 'Your account has been successfully verified. You will be redirected to the dashboard in 3 seconds';
+        // message = 'Your account has been successfully verified. You will be redirected to the dashboard in 3 seconds';
+        message = 'Your account has been successfully verified';
       }
       else {
         switch(res.error.type) {
@@ -85,7 +86,10 @@ const VerificationComponent = function() {
   ;
 
   return {
-    element: tplController.element
+    success: true,
+    controller: {
+      element: tplController.element
+    }
   };
 };
 

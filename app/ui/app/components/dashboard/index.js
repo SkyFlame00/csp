@@ -1,6 +1,5 @@
 const http = require('csp-app/libs/http');
 const template = require('./tpl');
-const {createElementFromHTML} = require('csp-app/libs/utilities');
 const {router} = require('csp-app/components/main');
 
 const Dashboard = function() {
@@ -15,18 +14,34 @@ const Dashboard = function() {
         user: res.data.user
       };
 
-      const element = createElementFromHTML(template(templateData));
-      const btn = element.querySelector('#log-out');
-      btn.addEventListener('click', () => {
+      templateData.user['avatar_url'] =
+        templateData.user['avatar_url'] ?
+        templateData.user['avatar_url'] :
+        'files/avatars/no-avatar.png';
+
+      const tplController = template(templateData);
+      tplController.userPanel.actions.logOutBtn.addEventListener('click', () => {
         window.localStorage.removeItem('auth_token');
         router.navigate('/');
       });
-      const routerOutler = element.querySelector('.router-outlet');
+      tplController.userPanel.hello.root.addEventListener('click', () => {
+        tplController.userPanel.actions.root.classList.toggle('no-display');
+      });
+      document.body.addEventListener('click', evt => {
+        const isHelloBtn = evt.target.closest('.hello') === tplController.userPanel.hello.root;
+        const isActionsBlock = evt.target.closest('.actions') === tplController.userPanel.actions.root;
+
+        if (!isHelloBtn && !isActionsBlock) {
+          tplController.userPanel.actions.root.classList.add('no-display');
+        }
+      });
+
+      const routerOutler = tplController.root.querySelector('.router-outlet');
 
       return {
         success: true,
         controller: {
-          element: element
+          element: tplController.root
         },
         render: function(element) {
           routerOutler.innerHTML = '';
